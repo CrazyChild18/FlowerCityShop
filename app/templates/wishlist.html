@@ -1,0 +1,108 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Wishlist') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner-->
+        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Wishlist') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('Wishlist') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--Wishlist-->
+        <div class="cart-page section-padding-5">
+            <div class="container">
+                <div class="cart-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="image">{{ _('Image') }}</th>
+                                <th class="product">{{ _('Product') }}</th>
+                                <th class="price">{{ _('Price') }}</th>
+                                <th class="remove">{{ _('Remove') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for wish in wishes %}
+                                <tr>
+                                    <td class="image">
+                                        <img src="../static/uploaded_AVATAR/{{ wish.flower_wish.pic }}" alt="">
+                                    </td>
+                                    <td class="product">
+                                        <a href="#">{{ wish.flower_wish.name }}</a>
+                                    </td>
+                                    <td class="price">
+                                        <span class="amount">${{ wish.flower_wish.price }}</span>
+                                    </td>
+                                    <td class="remove">
+                                        <a href="{{ url_for('main.delete_wishlist', id=wish.flower_wish.id) }}"><i class="ti-close"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+    </div>
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+
+    <!-- Google Map js -->
+{#    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#    <script src="../static/js/map-script.js"></script>#}
+
+</body>
+
+</html>

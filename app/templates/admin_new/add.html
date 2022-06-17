@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Add Product') }}</title>
+
+        <!-- Stylesheets -->
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+	<link href="../../static/blog/02-Single-post/css/styles.css" rel="stylesheet">
+	<link href="../../static/blog/02-Single-post/css/responsive.css" rel="stylesheet">
+
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+
+    <style type="text/css">
+            /*SELECT W/DOWN-ARROW*/
+            select#selectPointOfInterest
+            {
+               width                    : 185pt;
+               height                   : 40pt;
+               line-height              : 40pt;
+               padding-right            : 20pt;
+               text-indent              : 4pt;
+               text-align               : left;
+               vertical-align           : middle;
+               border                   : 1px solid #94c1e7;
+               -moz-border-radius       : 6px;
+               -webkit-border-radius    : 6px;
+               border-radius            : 6px;
+               -webkit-appearance       : none;
+               -moz-appearance          : none;
+               appearance               : none;
+               font-family              : SimHei;
+               font-size                : 18pt;
+               font-weight              : 500;
+               color                    : RGBA(102,102,102,0.7);
+               cursor                   : pointer;
+               outline                  : none;
+            }
+
+
+            /*LABEL FOR SELECT*/
+            label#lblSelect{ position: relative; display: inline-block;}
+
+
+            /*DOWNWARD ARROW (25bc)*/
+            label#lblSelect::after
+            {
+                content                 : "\25bc";
+                position                : absolute;
+                top                     : 0;
+                right                   : 0;
+                bottom                  : 0;
+                width                   : 20pt;
+                line-height             : 40pt;
+                vertical-align          : middle;
+                text-align              : center;
+                background              : #94c1e7;
+                color                   : #2984ce;
+               -moz-border-radius       : 0 6px 6px 0;
+               -webkit-border-radius    : 0 6px 6px 0;
+                border-radius           : 0 6px 6px 0;
+                pointer-events          : none;
+            }
+        </style>
+
+</head>
+
+<body>
+<div class="fix-header card-no-border fix-sidebar">
+{% import "_macros.html" as macros %}
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+        {% include 'admin_new/admin_head_bar.html' %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" style="margin-top: 30px">
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Add Product') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Page Content -->
+            <div class="row">
+                <!-- column -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <section class="blog-area" style="padding-top: 10px">
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- 主页面 -->
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="blog-posts">
+                                                    <!-- 文字输入区 -->
+                                                    <div class="leave-comment-area">
+                                                        <h4 class="title"><b class="light-color">{{ _('Add New Product To Shop')}}</b></h4>
+                                                        <div class="leave-comment" >
+                                                            <form method="post" enctype="multipart/form-data" action="">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <h5>{{ _('Product Name') }}</h5>
+                                                                        <input class="name-input" type="text" placeholder="{{ _('Enter Product Name Here') }}" name="item_name">
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <h5>{{ _('Product Picture') }}</h5>
+                                                                        <input class="email-input" type="file" placeholder="{{ _('Upload Product Picture') }}" name="filesToUpload" id="filesToUpload" multiple="multiple">
+                                                                        <output id="filesInfo" style="display: inline-block"></output>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <h5>{{ _('Product Short Introduction') }}</h5>
+                                                                        <input class="message-input" type="text" placeholder="{{ _('Enter Product Introduction Here') }}" name="item_intro">
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <h5>{{ _('Product Describe') }}</h5>
+                                                                        <textarea class="message-input" cols="10" name="item_describe">
+                                                                        </textarea>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <h5>{{ _('Product Price ($1-100)') }}</h5>
+                                                                        <input class="message-input" type="number" placeholder="{{ _('Enter Product Price') }}" name="item_price">
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <h5>{{ _('Product Amount') }}</h5>
+                                                                        <input class="message-input" type="number" placeholder="{{ _('Enter Product Amount') }}" name="item_number">
+                                                                    </div>
+                                                                    <div class="col-sm-12" style="margin-top: 30px">
+                                                                        <h5>{{ _('Select Product Color:') }}</h5>
+                                                                        <label id="lblSelect">
+                                                                            <select name="item_color" id="selectPointOfInterest">
+                                                                                <option>{{ _('pink') }}</option>
+                                                                                <option>{{ _('red') }}</option>
+                                                                                <option>{{ _('yellow') }}</option>
+                                                                                <option>{{ _('white') }}</option>
+                                                                                <option>{{ _('blue') }}</option>
+                                                                                <option>{{ _('purple') }}</option>
+                                                                                <option>{{ _('green') }}</option>
+                                                                                <option>{{ _('skyblue') }}</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-12" style="margin-top: 30px">
+                                                                        <h5>{{ _('Select Product usages:')}}</h5>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">Love</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="love">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Birthday') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="birthday">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Friendship') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="friendship">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Apology') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="apology">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Marriage') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="marriage">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Business') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="business">
+                                                                        </div>
+                                                                        <div>
+                                                                            <span style="width: 30%; color: black; font-size: larger">{{ _('Other') }}</span>
+                                                                            <input type="checkbox" style="display: inline-block; opacity: 1; position: static; width: 20%" name="application" value="other">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12" style="margin-top: 30px">
+                                                                        <h5>{{ _('Select Product Category:') }}</h5>
+                                                                        <label id="lblSelect">
+                                                                            <select name="item_style" id="selectPointOfInterest">
+                                                                                <option>{{ _('Flowers') }}</option>
+                                                                                <option>{{ _('Dried Flowers') }}</option>
+                                                                                <option>{{ _('Potted Flowers') }}</option>
+                                                                                <option>{{ _('Tools') }}</option>
+                                                                                <option>{{ _('Gift Suit')}}</option>
+                                                                            </select>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="col-sm-12" style="margin-top: 50px">
+                                                                        <button class="btn btn-8" type="submit" style="padding: 10px"><b>{{ _('ADD PRODUCT')}}</b></button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <footer class="footer">Copyright &copy; 2021.FlowerCity All rights reserved.</footer>
+        </div>
+    </div>
+</div>
+
+    <!-- All Jquery -->
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+    <!-- jQuery peity -->
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.init.js"></script>
+</body>
+
+</html>

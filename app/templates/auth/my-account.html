@@ -1,0 +1,651 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('My Account') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+        <!--Page Banner-->
+        <div class="page-banner" style="background-image: url(../../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('My Account') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('My Account') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--My Account-->
+        <div class="register-page section-padding-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-4">
+                        <div class="my-account-menu mt-30">
+                            <ul class="nav account-menu-list flex-column">
+                                <li>
+                                    <a class="active" data-toggle="pill" href="#pills-dashboard"><i class="fa fa-tachometer"></i> Information</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="pill" href="#pills-order"><i class="fa fa-shopping-cart"></i>
+                                        {{ _('Order') }}</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="pill" href="#pills-address"><i class="fa fa-map-marker"></i>
+                                        {{ _('Address') }}</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="pill" href="#pills-mycard"><i class="fa fa-map-marker"></i>
+                                        {{ _('VIP Card')}}</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="pill" href="#pills-account"><i class="fa fa-user"></i>
+                                        {{ _('Edit Details')}}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out"></i> {{ _('Logout') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-8">
+                        <div class="tab-content my-account-tab mt-30" id="pills-tabContent">
+                            <!-- 用户信息 -->
+                            <div class="tab-pane fade show active" id="pills-dashboard">
+                                <div class="my-account-dashboard account-wrapper" style="padding: 5px; background: rgba(198,198,198, 0.1)">
+                                    <h4 class="account-title" style="text-align: center">{{ _('Personal Information') }}</h4>
+                                    <div class="account-details" >
+                                        <div class="row">
+                                           <div style="width: 35%; height: 260px">
+                                               <div style="width: 70%; height: 65%; margin-left: auto; margin-right: auto; margin-top: 0%">
+                                                        <p style="text-align: center">Hello, <strong>{{ current_user.username }}</strong></p>
+                                                        {% if current_user.avatar == None %}
+                                                            <img style="width: 100%; height: 100%; border: lightskyblue 3px double; border-radius: 50%" src="../../static/images/avatar/head.png">
+                                                        {% else %}
+                                                            <img style="width: 100%; height: 100%; border: lightskyblue 3px double; border-radius: 50%" src="../../static/images/avatar/{{ current_user.avatar }}">
+                                                        {% endif %}
+
+                                                    </div>
+                                               </div>
+                                           <div style="width: 50%">
+                                                <hr style="width: 100%; height: 2px; border: none; border-top: 3px dotted #f64dd1; background: none">
+                                                <div class="col-md-12">
+                                                    <div class="single-form" style="padding-left: 5px; padding-right: 5px;">
+                                                        <div style="width: 50%; display: inline-block"><b>{{ ('Name') }}:</b></div>
+                                                        <span style="color: black">{{ current_user.name }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="single-form" style="padding-left: 5px; padding-right: 5px">
+                                                        <div style="width: 50%; display: inline-block"><b>{{ ('Age') }}:</b></div>
+                                                        <span style="color: black">{{ current_user.age }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="single-form" style="padding-left: 5px; padding-right: 5px">
+                                                        <div style="width: 50%; display: inline-block"><b>{{ _('Gender') }}:</b></div>
+                                                        <span style="color: black">{{ current_user.gender }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="single-form" style="padding-left: 5px; padding-right: 5px">
+                                                        <div style="width: 50%; display: inline-block"><b>{{ _('Country') }}:</b></div>
+                                                        <span style="color: black">{{ current_user.country }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="single-form" style="padding-left: 5px; padding-right: 5px">
+                                                        <div style="width: 50%; display: inline-block"><b>{{ _('Job') }}:</b></div>
+                                                        <span style="color: black">{{ current_user.job }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 历史订单 -->
+                            <div class="tab-pane fade" id="pills-order">
+                                <div class="my-account-order account-wrapper">
+                                    <h4 class="account-title">{{ _('Orders') }}</h4>
+                                    <div class="account-table text-center mt-30 table-responsive">
+                                        <table class="table" id="orders">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">{{ _('Name') }}</th>
+                                                    <th class="date">{{ _('Date') }}</th>
+                                                    <th class="status">{{ _('Status') }}</th>
+                                                    <th class="total">{{ _('Total') }}</th>
+                                                    <th class="action">{{ _('Action') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in orders %}
+                                                    <tr>
+                                                        <td style="display: none">{{ item.id }}</td>
+                                                        <td><a href="{{ url_for('auth.view', id=item.id) }}">{{ item.name }}</a></td>
+                                                        <td>{{ item.time.strftime('%Y-%m-%d  %H:%M:%S') }}</td>
+                                                        <td>
+                                                            {% if item.finish %}
+                                                            {{ _('Has been completed') }}
+                                                            {% else %}
+                                                            {{ _('Not to deliver goods') }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ item.total }}</td>
+                                                        {% if item.finish == 0 %}
+                                                            <td><span>{{ _('Wait for delivery') }}</span></td>
+                                                        {% elif item.finish == 1 %}
+                                                            <td><button type="button" class="receipt" style="border: orangered 2px double; background: orangered; color: white; border-radius: 13px" onclick="receipt()"><b>{{ _('Confirm receipt')}}</b></button></td>
+                                                        {% elif item.finish == 2 %}
+                                                            <td><span>{{ _('Finish order') }}<a style="color: red" id="refund">{{ _('Refund Request?') }}</a></span></td>
+                                                        {% elif item.finish == 3 %}
+                                                            <td><span>{{ _('Waiting for refunding!') }}</span></td>
+                                                        {% elif item.finish == 4 %}
+                                                            <td><span>{{ _('Refund finished!') }}</span></td>
+                                                        {% endif %}
+
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 收货地址 -->
+                            <div class="tab-pane fade" id="pills-address">
+                                <div class="my-account-address account-wrapper">
+                                    <div class="row">
+                                        {% for infor in informations %}
+                                            {% if infor.default %}
+                                                <div class="col-md-5" style="background: rgba(125,125,125, 0.1); padding: 10px; border: red 2px solid; border-radius: 10px; margin-left: 25px; margin-right: 35px; margin-bottom: 20px">
+                                                    <h4 class="account-title" style="text-align: center; ">{{ _('Address') }}</h4>
+                                                    <div class="account-address mt-30">
+                                                        <h1 class="name">{{ infor.name }}</h1>
+                                                        <p>{{ infor.address }}<br> {{ infor.city }}<br>{{ infor.nation }}</p>
+                                                        <p>{{ _('Mobile') }}: {{ infor.phone }}</p>
+                                                        <button class="btn btn-primary" type="button" id="default_button" style="width: 100%">
+                                                            <i class="fa fa-star"></i>
+                                                        </button>
+                                                        <br>
+                                                        <button class="btn btn-primary" type="button" style="width: 100%;"><a href="#" ><i class="fa fa-edit"></i>
+                                                            {{ _('Delete Address')}}</a></button>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-md-5" style="background: rgba(125,125,125, 0.1);  padding: 10px; border-radius: 10px; margin-left: 25px; margin-right: 35px; margin-bottom: 20px" >
+                                                <h4 class="account-title" style="text-align: center; ">{{ _('Address') }}</h4>
+                                                <div class="account-address mt-30">
+                                                    <h1 class="name">{{ infor.name }}</h1>
+                                                    <p>{{ infor.address }}<br> {{ infor.city }}<br>{{ infor.nation }}</p>
+                                                    <p>{{ _('Mobile') }}: {{ infor.phone }}</p>
+                                                    <button title="{{ infor.id }}" class="test" type="button" style="width: 100%; background: rgb(246,81,62); color: white; padding-top: 7px; padding-bottom: 7px; border-radius: 3px; border: rgb(246,81,62) 1px solid; margin-top: 20px">
+                                                         <i class="fa fa-edit"></i>{{ _('Set to Default') }}
+                                                    </button>
+                                                    <br>
+                                                    <button class="edit_information" type="button" style="width: 100%; background: rgb(246,81,62); color: white; padding-top: 7px; padding-bottom: 7px; border-radius: 3px; border: rgb(246,81,62) 1px solid; margin-top: 20px">
+                                                        <a href="#" ><i class="fa fa-edit"></i> {{ _('Delete Address') }}</a></button>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- VIP -->
+                            <div class="tab-pane fade" id="pills-mycard">
+                                <div class="my-account-address account-wrapper">
+                                    <div class="row">
+                                        {% if current_user.isVIP %}
+                                            <!-- 已经开通后的卡片样式 -->
+                                            <div class="col-md-11" style="background: linear-gradient(to right bottom, goldenrod 0%,#ffffff 100%);  padding: 10px; border-radius: 10px; margin-left: 25px; margin-right: 35px; margin-bottom: 20px" >
+                                            <h2 class="account-title" style="text-align: center; ">{{ _('VIP Card') }}</h2>
+                                            <div class="account-address mt-30">
+                                                <h4 style="display: inline-block">{{ _('Name') }}: </h4>
+                                                <p style="display: inline-block; margin-left: 15px;">{{ current_user.username }}</p>
+                                                <br>
+                                                <h1 style="float: right; margin-right: 20px; color: goldenrod">VIP</h1>
+                                                <h4 style="display: inline-block">{{ _('Account balance') }}:</h4>
+                                                <p style="display: inline-block; margin-left: 15px;">{{ current_user.deposit }}</p>
+                                                <br>
+                                                <h4 style="display: inline-block">{{ _('Card ID')}}:</h4>
+                                                <p style="display: inline-block; margin-left: 15px;">FC20210530ABC92432897892</p>
+                                                <button class="edit_information" type="button" style="width: 100%; background: rgb(246,81,62); color: white; padding-top: 7px; padding-bottom: 7px; border-radius: 3px; border: rgb(246,81,62) 1px solid; margin-top: 20px">
+                                                    <a data-toggle="modal" data-target="#add_money" href="#" ><i class="fa fa-edit" style="margin-right: 10px"></i>{{ _('Recharge') }}</a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                            <!-- 未开通的卡片样式 -->
+                                            <div class="col-md-11" style="background: linear-gradient(to right bottom, #535353 0%,#ffffff 100%);  padding: 10px; border-radius: 10px; margin-left: 25px; margin-right: 35px; margin-bottom: 20px" >
+                                            <h3 class="account-title" style="text-align: center; ">{{ _('VIP Card (Not Get)') }}</h3>
+                                            <div class="account-address mt-30">
+                                                <h1 style="text-align: center; margin-top: 20px; color: goldenrod;">
+                                                    {{ _('Welcome to FlowerCity VIP') }}</h1>
+                                                <h6 style="text-align: left; margin-left: 20%; color: black;">
+                                                    {{ _('Here you can enjoy:') }}
+                                                    <ul style="list-style-type: circle">
+                                                        <li>{{ _('Exclusive customer service') }}</li>
+                                                        <li>{{ _('Merchandise membership discount') }}</li>
+                                                        <li>{{ _('Recharge cash back benefits') }}</li>
+                                                        <li>{{ _('Can participate in online shop activities') }}</li>
+                                                    </ul>
+                                                </h6>
+                                                <button class="edit_information" type="button" style="width: 100%; background: rgb(246,81,62); color: white; padding-top: 7px; padding-bottom: 7px; border-radius: 3px; border: rgb(246,81,62) 1px solid; margin-top: 20px">
+                                                    <a data-toggle="modal" data-target="#open_vip" href="#" ><i class="fa fa-edit" style="margin-right: 10px"></i>{{ _('GRANT VIP')}}</a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-account">
+                                <div class="my-account-details account-wrapper">
+                                    <form action="#" method="post" enctype="multipart/form-data">
+                                        <h4 class="account-title">{{ _('Edit Account') }}</h4>
+                                        <div class="account-details">
+                                            <div class="row">
+                                                <div style="width: 50%; height: 400px">
+                                                    <div style="width: 70%; height: 65%; margin-left: auto; margin-right: auto; margin-top: 5%">
+                                                        <img style="width: 100%; height: 100%" src="../../static/images/avatar/avatar-default.png" id="choice">
+                                                        <input style="display: none" type="file" name="file" accept="image/*" value="0" id="changehead" onchange="read(this)">
+                                                    </div>
+                                                </div>
+                                                <div style="width: 50%">
+
+                                                    <div class="col-md-8">
+                                                        <div class="single-form">
+                                                            <input type="text" placeholder="{{ _('Name') }}" name="name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="single-form">
+                                                            <input type="text" placeholder="{{ _('Age') }}" name="age">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="single-form">
+                                                            <select name="gender">
+                                                                <option value="male">{{ _('Male') }}</option>
+                                                                <option value="female">{{ _('Female') }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="single-form">
+                                                            <input type="text" placeholder="{{ _('Country') }}" name="country">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="single-form">
+                                                            <select style="border: darkgray 1px solid" name="job">
+                                                                <option selected="selected">{{ _('Select your job') }}</option>
+                                                                <option value="student">{{ _('Student') }}</option>
+                                                                <option value="teacher">{{ _('Teacher') }}</option>
+                                                                <option value="police">{{ _('Police') }}</option>
+                                                                <option value="doctor">{{ _('Doctor') }}</option>
+                                                                <option value="lawyer">{{ _('Lawyer') }}</option>
+                                                                <option value="businessman">{{ _('Businessman') }}</option>
+                                                                <option value="soldier">{{ _('Soldier') }}</option>
+                                                                <option value="other">{{ _('Other Job') }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="single-form">
+                                                            <button class="btn btn-primary" type="submit">{{ _('Save Change') }}</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To Start-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+    </div>
+
+    <!-- 充值模态框-->
+    <div class="modal fade" id="add_money">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                <span id="value" style="display: none"></span>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$648.00</span>
+{#                                    <span class="discount">Double</span>#}
+                                </div>
+                                <p id="introduction"><img src="../../static/images/648.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=648) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('Purchase') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$328.00</span>
+{#                                    <span class="discount">Double</span>#}
+                                </div>
+                                <p id="introduction"><img src="../../static/images/328.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=328) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('Purchase') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$128.00</span>
+{#                                    <span class="discount">Double</span>#}
+                                </div>
+                                <p id="introduction"><img src="../../static/images/128.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=128) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('Purchase') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$68.00</span>
+{#                                    <span class="discount">Double</span>#}
+                                </div>
+                                <p id="introduction"><img src="../../static/images/68.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=68) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('Purchase') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开通模态框-->
+    <div class="modal fade" id="open_vip">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                <span id="value" style="display: none"></span>
+                <h3 style="text-align: center; margin-top: 10px; color: goldenrod">{{ _('The first time to open the recharge
+                        can enjoy the same amount of cash back')}}</h3>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$648.00</span>
+                                    <span class="discount">{{ _('Double') }}</span>
+                                </div>
+                                <p id="introduction"><img src="../../static/images/648.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=648) }}"><button type="button" id="submit" class="btn btn-primary" >
+                                            {{ _('BUY') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$328.00</span>
+                                    <span class="discount">{{ _('Double') }}</span>
+                                </div>
+                                <p id="introduction"><img src="../../static/images/328.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=328) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('BUY') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$128.00</span>
+                                    <span class="discount">{{ _('Double') }}</span>
+                                </div>
+                                <p id="introduction"><img src="../../static/images/128.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=128) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('BUY') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quick-view-content">
+                                <h4 class="product-title"></h4>
+                                <div class="thumb-price">
+                                    <span class="current-price">$68.00</span>
+                                    <span class="discount">{{ _('Double') }}</span>
+                                </div>
+                                <p id="introduction"><img src="../../static/images/68.jpg" style="width: 80%"></p>
+                                <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                    <div class="addcart-btn">
+                                        <a href="{{ url_for("auth.buy", money=68) }}"><button type="button" id="submit" class="btn btn-primary">
+                                            {{ _('BUY') }}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../../static/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="../static/js/vendor/popper.min.js"></script>
+    <script src="../static/js/vendor/bootstrap.min.js"></script> -->
+
+    <!-- Plugins JS -->
+    <!-- <script src="../static/js/plugins/swiper-bundle.min.js"></script>
+    <script src="../static/js/plugins/jquery.countdown.min.js"></script>
+    <script src="../static/js/plugins/jquery.elevateZoom.min.js"></script>
+    <script src="../static/js/plugins/select2.min.js"></script>
+    <script src="../static/js/plugins/ajax-contact.js"></script> -->
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../static/js/main.js"></script>
+    <script src="../../static/js/jquery-3.5.1.js"></script>
+
+    <script src="../../static/js/search.js"></script>
+
+    <script>
+        $('#refund').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/auth/refund',
+                data: {'id': $(this).closest('tr').find('td').eq(0).text()},
+                success: function (data) {
+                    if(data == 'success'){
+                        window.location.href = '/auth/myaccount'
+                    }
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+        })
+        function receipt(){
+            $.ajax({
+                type: 'post',
+                url: '/auth/receipt',
+                data: {'id': $('.receipt').closest('tr').find('td').eq(0).text()},
+                success: function (data) {
+                    if (data == 'success'){
+                        window.location.href = '/auth/myaccount'
+                    }
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+        }
+        $('#chooseImage').on('click',function(){
+
+        });
+        $('#chooseImage').on('change',function(){
+            var filePath = $(this).val();         //获取到input的value，里面是文件的路径
+            var fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
+            // 检查是否是图片
+            if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {
+                error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
+                return;
+            }
+            var src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+            $('#cropedBigImg').attr('src',src);
+        });
+
+        var jq = $.noConflict();
+        jq(function() {
+            // 点击修改头像
+            jq("#choice").click(function() {
+             // 点击input
+            jq("#changehead").click();
+            })
+           })
+
+       // 预览图片
+        function read(a) {
+            console.log(a.files);
+            var file = a.files[0];
+            //创建读取文件的对象
+            var reader = new FileReader();
+            //创建文件读取相关的变量
+            var imgFile;
+            //为文件读取成功设置事件
+            reader.onload = function(e) {
+             // alert('文件读取完成');
+                 imgFile = e.target.result;
+                 console.log(imgFile);
+                 jq("#choice").attr('src', imgFile);
+            };
+        //正式读取文件
+            reader.readAsDataURL(file);
+
+        // FormData 是 Html5 新加进来的一个类,可以模拟表单数据
+        // 可以使用 JQuery 的 $.Ajax 结合 FormData 异步上传二进制文件
+            var formdata=new FormData();
+            formdata.append("headimg",$("#changehead").get(0).files[0]);
+            formdata.append("nickname",name);
+            $.ajax({
+                url:"/upinfo",//后台路径
+                type:"POST",
+                data:formdata,
+                // 下面三个属性一定要加
+                processData:false,//对data参数进行序列化处理
+                contentType:false,//内容编码类型
+                cache:false,//不使用缓存
+                dataType:"json",
+                success:function(result){
+                    if (result==1){
+
+                    }
+                }
+            })
+        }
+
+        $('.test').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/auth/set_default',
+                data: {'id': this.title},
+                success: function (data) {
+                    if(data == 'success'){
+                        window.location.href = '/auth/myaccount'
+                    }
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+        })
+    </script>
+
+</body>
+
+</html>

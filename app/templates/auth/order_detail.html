@@ -1,0 +1,243 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('My Cart') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../../static/css/style.min.css">
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner-->
+{#        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">#}
+        <div class="page-banner" style="padding-bottom: 0; padding-top: 20px">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Order Detail') }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!--Cart-->
+        <div class="cart-page section-padding-5">
+            <div class="container">
+                <div class="cart-table table-responsive">
+                    <table class="table" id="cnm">
+                        <thead>
+                            <tr>
+                                <th class="image">{{ _('Image') }}</th>
+                                <th class="product">{{ _('Product') }}</th>
+                                <th class="price">{{ _('Price') }}</th>
+                                <th class="quantity">{{ _('Quantity') }}</th>
+                                <th class="total">{{ _('Total') }}</th>
+                                <th class="total">{{ _('Share With Us') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in items %}
+                                {% if i.flower_order_detail.on_sale %}
+                                    <tr>
+                                        <td style="display: none">
+                                            {{ i.id }}
+                                        </td>
+                                        <td class="image">
+                                            <img src="../../static/uploaded_AVATAR/{{ i.flower_order_detail.pic }}" alt="">
+                                        </td>
+                                        <td class="product">
+                                            <a href="#">{{ i.flower_order_detail.name }}</a>
+                                        </td>
+                                        <td class="price">
+                                            <span class="amount" id="per_price">{{ i.flower_order_detail.price }}</span>
+                                        </td>
+                                        <td class="quantity">
+                                            <span class="amount" id="per_price">{{ i.number }}</span>
+                                        </td>
+                                        <td class="total">
+                                            <span class="total-amount" id="total">${{ i.flower_order_detail.price * i.number }}</span>
+                                        </td>
+                                        <td class="total">
+                                            {% if i.content == None %}
+                                                <a class="quick" href="#" data-tooltip="tooltip" data-placement="left" data-toggle="modal" data-target="#exampleModal" style="border: rgb(220, 75, 62) 3px solid; background: rgba(154,154,154, 0.1); border-radius: 5px; padding: 5px"><img src="../../static/images/icons/comment.png" style="margin-right: 5px">Comment</a>
+                                            {% else %}
+                                                <a href="#" style="border: rgb(220, 75, 62) 3px solid; background: rgba(154,154,154, 0.1); border-radius: 5px; padding: 5px"><img src="../../static/images/icons/comment.png" style="margin-right: 5px">{{ _('View Comment')}}</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td style="display: none">
+                                            {{ i.id }}
+                                        </td>
+                                        <td class="image">
+                                            <img src="../../static/uploaded_AVATAR/{{ i.flower_order_detail.pic }}" alt="">
+                                        </td>
+                                        <td class="product">
+                                            <a href="#" style="color: gray; text-decoration: line-through">{{ i.flower_order_detail.name }}</a>
+                                        </td>
+                                        <td class="price">
+                                            <span class="amount" id="per_price">{{ i.flower_order_detail.price }}</span>
+                                        </td>
+                                        <td class="quantity">
+                                            <span class="amount" id="per_price">{{ i.number }}</span>
+                                        </td>
+                                        <td class="total">
+                                            <span class="total-amount" id="total">${{ i.flower_order_detail.price * i.number }}</span>
+                                        </td>
+                                        <td class="total">
+                                            {% if i.content == None %}
+                                                <a class="quick" href="#" data-tooltip="tooltip" data-placement="left" data-toggle="modal" data-target="#exampleModal" style="border: rgb(220, 75, 62) 3px solid; background: rgba(154,154,154, 0.1); border-radius: 5px; padding: 5px"><img src="../../static/images/icons/comment.png" style="margin-right: 5px">Comment</a>
+                                            {% else %}
+                                                <a href="#" style="border: rgb(220, 75, 62) 3px solid; background: rgba(154,154,154, 0.1); border-radius: 5px; padding: 5px"><img src="../../static/images/icons/comment.png" style="margin-right: 5px">{{ _('View Comment') }}</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" style="width: 100%; background-color: white">
+                        <div class="cart-totals">
+                            <div class="cart-total-table mt-25" style="background-color: white">
+                                <table class="table" style="background-color: white; text-align: center" >
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p class="value"><b>{{ _('Total') }}</b></p>
+                                            </td>
+                                            <td>
+                                                <p class="price", id="total_price" style="font-size: 1.5em">{{ total }}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart-total-btn">
+                                <button type="button" class="btn btn-primary btn-block" onclick="back()">{{ _('Return') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To Start-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+
+        <!-- Quick View  Start-->
+        <div class="modal fade" id="exampleModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="reviews-form">
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h2>{{ _('Comment') }}</h2>
+                                            </div>
+                                        </div>
+                                        <span id="value" style="display: none"></span>
+                                        <div class="col-md-12">
+                                            <div class="reviews-rating">
+                                                <label>{{ _('Rating') }}</label>
+                                                <ul id="rating" class="rating">
+                                                    <li class="star" title='Poor' data-value='1'><i class="fa fa-star-o"></i></li>
+                                                    <li class="star" title='Poor' data-value='2'><i class="fa fa-star-o"></i></li>
+                                                    <li class="star" title='Poor' data-value='3'><i class="fa fa-star-o"></i></li>
+                                                    <li class="star" title='Poor' data-value='4'><i class="fa fa-star-o"></i></li>
+                                                    <li class="star" title='Poor' data-value='5'><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <label>{{ _('Body of Review (300)')}}</label>
+                                                <textarea id="content" placeholder="{{ _('Write your comments here') }}"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <button type="button" id="submit_comment" class="btn btn-dark">{{ _('Submit Review')}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Modernizer JS -->
+    <script src="../../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../../static/js/vendor/jquery-3.3.1.min.js"></script>
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../static/js/main.js"></script>
+
+
+    <script>
+        function back(){
+            window.location.href = '../myaccount'
+        }
+        $('.quick').on('click', function (){
+            $('#value').html($(this).closest('tr').find('td').eq(0).text())
+        })
+        $('#submit_comment').on('click', function (){
+            $.ajax({
+            type: 'post',
+            url: '/auth/add_comment',
+            data: {
+                'grade': document.getElementsByClassName("fa fa-star").length * 2,
+                'content': $('#content').val(),
+                'id': $('#value').text()
+            },
+            success: function (data) {
+                if (data == 'success') {
+                    window.location.href = '../myaccount'
+                }
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+        })
+    </script>
+
+</body>
+
+</html>

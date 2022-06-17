@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Set Announcement') }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header card-no-border fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+        {% include 'admin_new/admin_head_bar.html' %}
+
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Set Announcement') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ _('Announcement') }}</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <center class="m-t-30"> <img src="../../static/admin_new/assets/images/users/5.jpg" class="img-circle" width="150" /></center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <!-- Tab panes -->
+                            <div class="card-body">
+                                <form class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">{{ _('Announcement Title') }}</label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="title" placeholder="{{ _('Enter Title Here') }}" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="Content" style="overflow: auto; height: 300px">
+                                        <label class="col-md-12">{{ _('Announcement Content') }}</label>
+                                        <span id="number" style="display: none">1</span>
+                                        <div class="col-md-12" id="1">
+                                            <span style="margin-right: 0.5%">1.</span>
+                                            <input class="form-control form-control-line" style="display: inline-block; width: 70%">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="button" id="add_announcement" class="btn btn-success">{{ _('Update Profile')}}</button>
+                                            <button type="button" id="add_input">{{ _('Add Item') }}</button>
+                                            <button type="button" id="delete_input">{{ _('Delete Item') }}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <footer class="footer">Copyright &copy; 2021 Newbility</footer>
+        </div>
+
+    </div>
+
+
+
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+
+    <script>
+        $('#add_input').on('click', function (){
+            number = $('#number').text()
+            $('#number').html(parseInt(number) + 1)
+            new_number = $('#number').text()
+            $('#Content').append(
+                `
+                <div class="col-md-12" id="${new_number}">
+                    <span style="margin-right: 0.5%">${new_number}.</span>
+                    <input class="form-control form-control-line content" style="display: inline-block; width: 70%">
+                </div>
+                `
+            )
+        })
+
+        $('#delete_input').on('click', function (){
+            if($('#number').text() > 1){
+                var div = document.getElementById($('#number').text());
+                div.parentNode.removeChild(div);
+                number = $('#number').text()
+                $('#number').html(parseInt(number) - 1)
+            }
+        })
+
+        $('#add_announcement').on('click', function (){
+            var announcement_list = []
+            for(var i=1; i <= $('#number').text(); i++){
+                announcement_list.push("^" + $('#' + i).find('input').val() + "^")
+            }
+            $.ajax({
+                type: 'post',
+                url: '/admin/add_announcement',
+                data: {'list': JSON.stringify(announcement_list),
+                        'title': $('#title').val()},
+                success: function (data) {
+                    if(data == 'success'){
+                        alert("jnisxcihvjkisdfhbuiofs")
+                        window.location.href = '/admin/admin-announcement'
+                    }
+                },
+             })
+
+        })
+    </script>
+</body>
+
+</html>

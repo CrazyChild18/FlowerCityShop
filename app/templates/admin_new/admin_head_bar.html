@@ -1,0 +1,73 @@
+<!-- Topbar header - style you can find in pages.scss -->
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <!-- Logo -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('main.home') }}">
+                <b>
+                    <!-- Dark Logo icon -->
+                    <img src="../../static/images/logo/logo.png" alt="homepage" class="dark-logo" style="width: 180px"/>
+                    <!-- Light Logo icon -->
+                    <img src="../../static/images/logo/logo-white.png" alt="homepage" class="light-logo" />
+                </b>
+            </a>
+        </div>
+
+        <div class="navbar-collapse" style="margin-left: 110px">
+            <!-- toggle and nav items -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><img src="../../static/admin_new/assets/images/open.png" style="width: 20px"></a> </li>
+            </ul>
+            <!-- User profile and search -->
+            <ul class="navbar-nav my-lg-0" style="width: 35%;">
+                <!-- Profile -->
+                <li class="nav-item dropdown u-pro" style="margin-left: auto; margin-right: auto">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-toggle="dropdown">
+                        {% if current_user.avatar == None %}
+                            <img src="../../static/images/avatar/head.png" class=""/>
+                        {% else %}
+                            <img src="../../static/images/avatar/{{ current_user.avatar }}" class=""/>
+                        {% endif %}
+                        <span class="hidden-md-down" style="margin-left: 10%;"> {{ _('Welcome:') }} <b>{{ current_user.username }}</b></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ url_for('admin.admin_profile') }}">{{ _('Staff Profile') }}</a>
+                        <a class="dropdown-item" href="{{ url_for('admin.register') }}">{{ _('Register As Staff') }}</a>
+                        <a class="dropdown-item" href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<aside class="left-sidebar" style="margin-top: 8px">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_main_new') }}" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">{{ _('Dashboard') }}</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_profile') }}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">{{ _('Profile') }}</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_product_new') }}" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu">{{ _('Product List') }}</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_order_new', text='%null%') }}" aria-expanded="false"><i class="fa fa-table"></i><span class="hide-menu">{{ _('Order List') }}</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_chat') }}" aria-expanded="false"><i class="fa fa-smile-o"></i><span class="hide-menu">{{ _('Chat') }}</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ url_for('admin.admin_announcement') }}" aria-expanded="false"><i class="fa fa-smile-o"></i><span class="hide-menu">{{ _('Set Announcement') }}</span></a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+</aside>

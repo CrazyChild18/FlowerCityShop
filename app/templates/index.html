@@ -1,0 +1,592 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>FlowerCity</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+
+        <span id="is_admin" style="display: none">{{ current_user.is_authenticated }}</span>
+        <!--Slider-->
+        <div class="slider-area">
+            <div class="swiper-container slider-active">
+                <!--Swiper Wrapper-->
+                <div class="swiper-wrapper">
+
+                    <!--Single Slider-->
+                    <div class="single-slider swiper-slide animation-style-01" style="background-image: url(../static/images/slider/slider-1.jpg);">
+                        <div class="container">
+                            <div class="slider-content">
+                                <h5 class="sub-title">{{ _('Full Variety of Flowers')}}</h5>
+                                <h2 class="main-title">{{ _('Browse flowers')}}</h2>
+                                <p>{{ _('One-stop shopping experience, one click away')}}</p>
+                                <ul class="slider-btn">
+                                      <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}" class="btn btn-round btn-primary">{{ _('Shopping Now') }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Single Slider-->
+                    <div class="single-slider swiper-slide animation-style-01" style="background-image: url(../static/images/slider/slider-2.jpg);">
+                        <div class="container">
+                            <div class="slider-content">
+                                <h5 class="sub-title">{{ _('We will help you remember')}}</h5>
+                                <h2 class="main-title">{{ _('Memorial Day Gifts')}}</h2>
+                                <p>{{ _('Give a gift to a special person at a special time')}}</p>
+                                <ul class="slider-btn">
+                                    <li><a href="#" class="btn btn-round btn-primary">{{ _('Customize your gift')}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Arrows -->
+                <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+
+                <!-- Pagination -->
+                <!-- 这tm也不知道是干啥的，以防万一先留着吧-->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!--这里为商店品质保证标签-->
+        <div class="shipping-area section-padding-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-shipping">
+                            <div class="shipping-icon">
+                                <img src="../static/images/shipping-icon/Free-Delivery.png" alt="">
+                            </div>
+                            <div class="shipping-content">
+                                <h5 class="title">{{ _('Free Delivery')}}</h5>
+                                <p>{{ _('Free shipping around the world for all orders over $120')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-shipping">
+                            <div class="shipping-icon">
+                                <img src="../static/images/shipping-icon/Online-Order.png" alt="">
+                            </div>
+                            <div class="shipping-content">
+                                <h5 class="title">{{ _('Online Order')}}</h5>
+                                <p>{{ _('Don’t worry you can order Online by our Site')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-shipping">
+                            <div class="shipping-icon">
+                                <img src="../static/images/shipping-icon/Freshness.png" alt="">
+                            </div>
+                            <div class="shipping-content">
+                                <h5 class="title">{{ _('Freshness') }}</h5>
+                                <p>{{ _('You have freshness flowers every single order')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="single-shipping">
+                            <div class="shipping-icon">
+                                <img src="../static/images/shipping-icon/Made-By-Artists.png" alt="">
+                            </div>
+                            <div class="shipping-content">
+                                <h5 class="title">{{ _('Made by Artists')}}</h5>
+                                <p>{{ _('World for all made by artists orders over now')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--New Product-->
+        <div class="features-product-area section-padding-5">
+            <div class="container">
+                <!-- 标题部分 -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-9 col-sm-11">
+                        <div class="section-title text-center">
+                            <h2 class="title">{{ _('We select it for you')}}</h2>
+                            <p>{{ _('A perfect blend of creativity, energy, communication, happiness and love. Let us arrange a smile for you.')}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 商品内容 -->
+                <div class="product-wrapper">
+                    <!-- 上方菜单栏 -->
+                    <div class="product-tab-menu">
+                        <ul class="nav justify-content-center" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#tab1" role="tab">{{ _('New') }}</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab2" role="tab">{{ _('Featured') }}</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab3" role="tab">{{ _('Best Sellers')}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 商品卡片 -->
+                    <div class="tab-content product-items-tab">
+                        <!-- 商品卡片 NEW -->
+                        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                            <div class="swiper-container product-active">
+                                <div class="swiper-wrapper">
+                                    {% for i in flower_new %}
+                                        <div class="swiper-slide">
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <a href="{{ url_for('main.product_detail', id=i.id) }}">
+                                                        <img class="image_hit" title="{{ i.id }}" src="../static/uploaded_AVATAR/{{ i.pic }}" alt="">
+                                                    </a>
+
+                                                    <span class="sticker-new soldout-title">VIP -10%</span>
+
+                                                    <div class="action-links">
+                                                        <ul>
+                                                            <li style="display: none">{{ i.id }}</li>
+                                                            <li style="display: none">{{ i.pic }}</li>
+                                                            <li style="display: none">{{ i.name }}</li>
+                                                            <li style="display: none">{{ i.price }}</li>
+                                                            <li style="display: none">{{ i.grade }}</li>
+                                                            <li style="display: none">{{ i.intro }}</li>
+                                                            <li><a href="{{ url_for('main.cart') }}" data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                                            <li><a href="{{ url_for('main.wishlist') }}" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                                            <li><a class="quick_view" href="" data-tooltip="tooltip" data-placement="left" title="{{ _('Quick View') }}" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <ul class="rating">
+                                                        {% if i.grade >= 2 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 4 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 6 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 8 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade == 10 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                    </ul>
+                                                    <h4 class="product-name"><a class="product_detail" title="{{ i.id }}" href="{{ url_for('main.product_detail', id=i.id) }}">{{ i.name }}</a></h4>
+                                                    <div class="price-box">
+                                                        <span class="current-price">${{ i.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Add Arrows -->
+                                <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                                <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+                            </div>
+                        </div>
+                        <!-- 商品卡片 FEATURED -->
+                        <div class="tab-pane fade" id="tab2" role="tabpanel">
+                            <div class="swiper-container product-active">
+                                <div class="swiper-wrapper">
+                                    {% for i in flower_feature %}
+                                        <div class="swiper-slide">
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <a href="{{ url_for('main.product_detail', id=i.id) }}">
+                                                        <img class="image_hit" title="{{ i.id }}"src="../static/uploaded_AVATAR/{{ i.pic }}" alt="">
+                                                    </a>
+
+                                                    <span class="sticker-new soldout-title">VIP -10%</span>
+
+                                                    <div class="action-links">
+                                                        <ul>
+                                                            <li style="display: none">{{ i.id }}</li>
+                                                            <li style="display: none">{{ i.pic }}</li>
+                                                            <li style="display: none">{{ i.name }}</li>
+                                                            <li style="display: none">{{ i.price }}</li>
+                                                            <li style="display: none">{{ i.grade }}</li>
+                                                            <li style="display: none">{{ i.intro }}</li>
+                                                            <li><a href="{{ url_for('main.cart') }}" data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                                            <li><a href="{{ url_for('main.wishlist') }}" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                                            <li><a class="quick_view" href="" data-tooltip="tooltip" data-placement="left" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <ul class="rating">
+                                                        {% if i.grade >= 2 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 4 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 6 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 8 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade == 10 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                    </ul>
+                                                    <h4 class="product-name"><a class="product_detail" title="{{ i.id }}" href="{{ url_for('main.product_detail', id=i.id) }}">{{ i.name}}</a></h4>
+                                                    <div class="price-box">
+                                                        <span class="current-price">${{ i.price }}</span>
+{#                                                        <span class="old-price">$29.00</span>#}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Add Arrows -->
+                                <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                                <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+                            </div>
+                        </div>
+                        <!-- 商品卡片 BEST SELLERS -->
+                        <div class="tab-pane fade" id="tab3" role="tabpanel">
+                            <div class="swiper-container product-active">
+                                <div class="swiper-wrapper">
+                                    {% for i in flower_best %}
+                                        <div class="swiper-slide">
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    <a href="{{ url_for('main.product_detail', id=i.id) }}">
+                                                        <img  class="image_hit" title="{{ i.id }}" src="../static/uploaded_AVATAR/{{ i.pic }}" alt="">
+                                                    </a>
+                                                    <span class="sticker-new soldout-title">VIP -10%</span>
+
+                                                    <div class="action-links">
+                                                        <ul>
+                                                            <li style="display: none">{{ i.id }}</li>
+                                                            <li style="display: none">{{ i.pic }}</li>
+                                                            <li style="display: none">{{ i.name }}</li>
+                                                            <li style="display: none">{{ i.price }}</li>
+                                                            <li style="display: none">{{ i.grade }}</li>
+                                                            <li style="display: none">{{ i.intro }}</li>
+                                                            <li><a href="{{ url_for('main.cart') }}" data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                                            <li><a href="{{ url_for('main.wishlist') }}" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                                            <li><a class="quick_view" href="" data-tooltip="tooltip" data-placement="left" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <ul class="rating">
+                                                        {% if i.grade >= 2 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 4 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 6 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade >= 8 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                        {% if i.grade == 10 %}
+                                                            <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                        {% else %}
+                                                            <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                    </ul>
+                                                    <h4 class="product-name"><a class="product_detail" title="{{ i.id }} "href="{{ url_for('main.product_detail', id=i.id) }}">{{ i.name }}</a></h4>
+                                                    <div class="price-box">
+                                                        <span class="current-price">${{ i.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Add Arrows -->
+                                <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                                <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--标语栏-->
+        <div class="testimonial-area" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="swiper-container testimonial-active">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="single-testimonial text-center">
+                                <p>{{ _('When every love comes to the end, if you look back, you will find flowers and
+                                        sorrows, but it’s always beautiful.')}}</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-testimonial text-center">
+                                <p>{{ _('Let life be beautiful like summer flower, and death like autumn tears.')}}</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="single-testimonial text-center">
+                                <p>{{ _('If I had a single flower for every time I think about you, I could walk forever in
+                                        my garden.')}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrows -->
+                    <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                    <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!--底部欢迎标语-->
+        <div class="newsletter-area section-padding-5">
+            <div class="container">
+                <div class="newsletter-form">
+                    <div class="section-title text-center">
+                        <h2 class="title">{{ _('Welcome to the FlowerCity!')}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+        <!-- Quick View-->
+        <div class="modal fade" id="exampleModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                    <span id="value" style="display: none"></span>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="quick-view-image">
+                                    <img id="image" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="quick-view-content">
+                                    <h4 class="product-title"></h4>
+                                    <div class="thumb-price">
+                                        <span class="current-price"></span>
+                                        <span class="discount">VIP -10%</span>
+                                    </div>
+                                    <div class="product-rating">
+                                        <ul class="rating-star">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                    </div>
+                                    <p id="introduction"></p>
+
+                                    <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                        <form action="#">
+                                            <div class="quantity d-inline-flex">
+                                                <button type="button" class="sub"><i class="ti-minus"></i></button>
+                                                <input id="number" type="text" value="1" />
+                                                <button type="button" class="add"><i class="ti-plus"></i></button>
+                                            </div>
+                                        </form>
+                                        <div class="addcart-btn">
+                                            <button type="button" id="submit" class="btn btn-primary">Add to cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+    <script>
+        $('.image_hit').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/hit',
+                data: {
+                    'id': this.title,
+                },
+                success: function (data) {
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+
+        $('.product_detail').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/hit',
+                data: {
+                    'id': this.title,
+                },
+                success: function (data) {
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+
+        $('.quick_view').on('click', function (){
+            $('#number').val(1)
+            $('#value').html($(this).closest('ul').find('li').eq(0).text())
+            $('.product-title').text($(this).closest('ul').find('li').eq(2).text())
+            var path = '../static/uploaded_AVATAR/' + $(this).closest('ul').find('li').eq(1).text()
+            $('#image').attr('src', path)
+            $('.current-price').html($(this).closest('ul').find('li').eq(3).text())
+
+            var grade = $(this).closest('ul').find('li').eq(4).text()
+            if(grade >= 2){
+                $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 4){
+                $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 6){
+                $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 8){
+                $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 10){
+                $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star-o')
+            }
+
+            $('#introduction').html($(this).closest('ul').find('li').eq(5).text())
+        })
+
+        $('#submit').on('click', function (){
+            if($('#is_admin').text() == 'False'){
+                alert('You have not logged in yet!')
+                window.location.href = '/auth/login'
+            }else{
+                $.ajax({
+                    type: 'post',
+                    url: '/quick_view_add_cart',
+                    data: {
+                        'id': $('#value').text(),
+                        'number': $('#number').val()
+                    },
+                    success: function (data) {
+                        if (data == 'success'){
+                            window.location.href = '/cart'
+                        }
+                    },
+                    error: function () {
+                        alert('wrong')
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+
+</html>

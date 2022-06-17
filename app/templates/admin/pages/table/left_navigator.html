@@ -1,0 +1,211 @@
+<header class="navbar-header">
+            <!-- 标签栏Title -->
+			<div class="brand">
+				<a class="navbar-brand" href="admin_main.html" title="AlphaAdmin">FlowerCity</a>
+			</div>
+            <!-- 导航栏 -->
+			<div class="navbar">
+				<i class="sidebar-toggle iconfont icon-menu" data-toggle="push-menu" role="button"></i>
+				<div class="navbar-menu pull-right">
+					<ul class="nav navbar-nav">
+                        <!-- 管理员与用户聊天接口 -->
+						<li class="dropdown message">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="消息">
+								<i class="iconfont icon-email"></i>
+								<span class="badge">4</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="header">您有4条消息</li>
+								<li class="body">
+									<ul class="menu">
+										<li>
+											<a href="#" title="如何设置头部head...">
+												<div class="pull-left">
+													<img class="img-circle" src="../../static/admin/assets/avatars/avatars.png">
+												</div>
+												<h4 class="name">
+													匿名用户
+													<small class="pull-right">
+														<i class="iconfont icon-time"></i>
+														5分钟前
+													</small>
+												</h4>
+												<p class="content">
+													如何设置头部head的meta值
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="如何设置头部head...">
+												<div class="pull-left">
+													<img class="img-circle" src="../../static/admin/assets/avatars/avatars.png">
+												</div>
+												<h4 class="name">
+													匿名用户
+													<small class="pull-right">
+														<i class="iconfont icon-time"></i>
+														5分钟前
+													</small>
+												</h4>
+												<p class="content">
+													如何设置头部head的meta值
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="如何设置头部head...">
+												<div class="pull-left">
+													<img class="img-circle" src="../../static/admin/assets/avatars/avatars.png">
+												</div>
+												<h4 class="name">
+													匿名用户
+													<small class="pull-right">
+														<i class="iconfont icon-time"></i>
+														5分钟前
+													</small>
+												</h4>
+												<p class="content">
+													如何设置头部head的meta值
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="如何设置头部head...">
+												<div class="pull-left">
+													<img class="img-circle" src="../../static/admin/assets/avatars/avatars.png">
+												</div>
+												<h4 class="name">
+													匿名用户
+													<small class="pull-right">
+														<i class="iconfont icon-time"></i>
+														5分钟前
+													</small>
+												</h4>
+												<p class="content">
+													如何设置头部head的meta值
+												</p>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li class="footer">
+									<a href="#" title="查看所有消息">
+										查看所有消息
+									</a>
+								</li>
+							</ul>
+						</li>
+                        <!-- 管理员登出接口 -->
+						<li class="dropdown user">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="用户">AlphaAdmin</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a data-toggle="modal" data-target=".menu-setpassword" href="#" title="个人信息">
+										<i class="iconfont icon-menu-user"></i>
+										Edit Password
+									</a>
+								</li>
+								<li class="divider"></li>
+                                <li>
+									<a href="{{ url_for('admin.register') }}">
+										<i class="iconfont icon-menu-user"></i>
+										Staff Register
+									</a>
+								</li>
+                                <li class="divider"></li>
+                                <li>
+									<a href="{{ url_for('main.home') }}">
+										<i class="iconfont icon-menu-left"></i>
+										Back to shop
+									</a>
+								</li>
+                                <li class="divider"></li>
+								<li>
+									<a href="{{ url_for('auth.logout') }}">
+										<i class="iconfont icon-power"></i>
+										Log out
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<!-- 左侧导航 -->
+		<aside class="main-sidebar">
+            <!-- 侧边栏Title -->
+			<div class="user-panel">
+				<div class="image pull-left">
+					<img src="../../static/admin/assets/avatars/avatars.png" alt="">
+				</div>
+				<div class="info pull-right">
+                    <!-- 这里显示登录员工姓名 -->
+					<p class="title">员工姓名</p>
+					<strong>Admin System</strong>
+				</div>
+			</div>
+            <!-- 侧边栏菜单 -->
+			<section class="sidebar">
+				<ul class="sidebar-menu" data-widget="tree">
+                    <!-- 主界面 -->
+					<li class="active">
+						<a href="{{ url_for('admin.admin_main') }}" title="Main Page">
+							<i class="iconfont icon-dashborad"></i>
+							<small>Main Page</small>
+						</a>
+					</li>
+                    <!-- 订单详情 -->
+                    <li class="active">
+						<a href="{{ url_for('admin.order_list') }}" title="订单详情">
+							<i class="iconfont icon-dashborad"></i>
+							<small>订单详情</small>
+						</a>
+					</li>
+                    <!-- 商品详情 -->
+                    <li class="active">
+						<a href="{{ url_for('admin.product_list') }}" title="商品详情">
+							<i class="iconfont icon-dashborad"></i>
+							<small>商品详情</small>
+						</a>
+					</li>
+                    <!-- 聊天 -->
+                    <li class="active">
+						<a href="{{ url_for('admin.chat') }}" title="客服聊天">
+							<i class="iconfont icon-dashborad"></i>
+							<small>客服聊天</small>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="iconfont icon-folder"></i>
+							<small>页面</small>
+							<span class=" pull-right">
+								<i class="iconfont icon-menu-left-small"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li>
+								<a href="pages/page/login.html">
+									<i class="iconfont icon-circle-hollow"></i>
+									<small>登录页面</small>
+								</a>
+							</li>
+							<li>
+								<a href="pages/page/register.html">
+									<i class="iconfont icon-circle-hollow"></i>
+									<small>注册页面</small>
+								</a>
+							</li>
+							<li>
+								<a href="pages/page/404.html">
+									<i class="iconfont icon-circle-hollow"></i>
+									<small>404页面</small>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		</aside>

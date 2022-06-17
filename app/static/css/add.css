@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.form-add{
+    border: black double 2px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    box-shadow: 0 0 10px purple;
+}
+
+.title{
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.info{
+    width: 100%;
+}

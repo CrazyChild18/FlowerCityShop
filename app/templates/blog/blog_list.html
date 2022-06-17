@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>{{ _('Blog List') }}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+	<!-- Stylesheets -->
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/layerslider.css" rel="stylesheet">
+	<link href="../../static/blog/01-homepage/css/styles.css" rel="stylesheet">
+	<link href="../../static/blog/01-homepage/css/responsive.css" rel="stylesheet">
+</head>
+<body>
+
+	{% include 'blog/blog_head.html' %}
+
+    <!-- main-slider -->
+	<div class="main-slider">
+        <div id="slider">
+			<div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+				<img src="../../static/images/blog-single/blog-single.jpg" class="ls-bg" alt="" />
+
+					<div class="slider-content ls-l" style="top:60%; left:30%;" data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+						<a class="btn" href="#">{{ _('Explore') }}</a>
+						<h3 class="title"><b>{{ _('Flower, Love, Life, Share') }}</b></h3>
+						<h6>{{ _('Waiting for you') }}</h6>
+					</div>
+
+			</div>
+			<div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+				<img src="../../static/images/slider/slider-2.jpg" class="ls-bg" alt="" />
+
+					<div class="slider-content ls-l" style="top:60%; left:30%;" data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+						<a class="btn" href="#">{{ _('Explore') }}</a>
+						<h3 class="title"><b>{{ _('Flower, Love, Life, Share') }}</b></h3>
+						<h6>{{ _('Waiting for you') }}</h6>
+					</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- container -->
+	<section class="section blog-area">
+		<div class="container">
+			<div class="row">
+                <!-- col-lg-8 -->
+				<div class="col-lg-8 col-md-12">
+                    <!-- blog-posts -->
+					<div class="blog-posts">
+                        <!-- row -->
+						<div class="row", id="blog_list">
+
+						</div>
+                            <div id="page">
+
+                            </div>
+					</div>
+				</div>
+
+                <!-- col-lg-4 -->
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+                        <!-- sidebar-section src-area -->
+						<div class="sidebar-section src-area">
+
+							<form action="post">
+								<input class="src-input" type="text" placeholder="{{ _('Search') }}">
+								<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+							</form>
+
+						</div>
+                        <!-- sidebar-section category-area -->
+						<div class="sidebar-section category-area">
+							<h4 class="title"><b class="light-color">{{ _('Categories') }}</b></h4>
+							<a class="category" href="{{ url_for('main.blog_list', text='Flower Art Appreciation') }}">
+								<img src="../../static/blog/images/category-1-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Flower Art Appreciation') }}</h6>
+							</a>
+
+							<a class="category" href="{{ url_for('main.blog_list', text='Breeding Techniques') }}">
+								<img src="../../static/blog/images/category-2-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Breeding Techniques') }}</h6>
+							</a>
+
+							<a class="category" href="{{ url_for('main.blog_list', text='Question And Answer') }}">
+								<img src="../../static/blog/images/category-3-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Question And Answer') }}</h6>
+							</a>
+							<a class="category" href="{{ url_for('main.blog_list', text='Sharing Flowers') }}">
+								<img src="../../static/blog/images/category-4-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Sharing Flowers') }}</h6>
+							</a>
+						</div>
+                        <!-- sidebar-section latest-post-area -->
+						<div class="sidebar-section latest-post-area">
+							<h4 class="title"><b class="light-color">{{ _('Latest Posts') }}</b></h4>
+                                {% for post in latest_posts %}
+                                    <div class="latest-post">
+                                        <div class="l-post-image"><img src="../../static/blog_PIC/{{ post.title }}0.jpg" alt="Category Image"></div>
+                                        <div class="post-info">
+                                            <h5><a href="{{ url_for('main.blog_detail', id=post.id) }}"><b class="light-color">{{ post.title }}</b></a></h5>
+                                            <h6 class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></h6>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</section>
+
+    <!--Add Blog-->
+    <a class="btn load-more-btn" target="_blank" href="{{ url_for('main.blog_add') }}" style="position: fixed; bottom: 100px; z-index: 99; right: 20px">
+        <img src="../../static/images/add_comment.png" style="width: 20px; margin-right: 10px; border: #0a001f 2px solid; border-radius: 10px">
+        <b>{{ _('Write Blog') }}</b>
+    </a>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="footer-section">
+
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+	<script src="../../static/blog/common-js/jquery-3.1.1.min.js"></script>
+	<script src="../../static/blog/common-js/tether.min.js"></script>
+	<script src="../../static/blog/common-js/bootstrap.js"></script>
+	<script src="../../static/blog/common-js/layerslider.js"></script>
+	<script src="../../static/blog/common-js/scripts.js"></script>
+    <script src="../static/js/search.js"></script>
+
+    <script>
+        var item_list
+        var item_number = 8
+        var pre_page = 1
+        var next_page
+        var cur_page = 1
+        $.ajax({
+            type: 'post',
+            url: '/search_post',
+            data: {'data': '{{ items }}' },
+            success: function (data) {
+                item_list = data
+                next_page = Math.ceil(data.length / item_number)
+                load_page()
+                load_flower(item_list)
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+        function load_flower(data){
+            var str = ''
+            var up
+            if(cur_page==next_page){
+                 up = item_list.length
+            }else{
+                 up = cur_page * item_number
+            }
+            if(next_page==0){
+                up = 0
+            }
+            for (var i = (cur_page-1) * item_number; i < up; i++) {
+                str += `
+                        <div class="col-lg-6 col-md-12">
+                            <div class="single-post">
+                                <span style='display: none'>${data[i].id}</span>
+                                <div class="image-wrapper"><a class="post_img"><img src="../../static/blog_PIC/${data[i].title}0.jpg" alt="Blog Image"></a></div>
+                                <h6 class="date"><em>${data[i].time}</em></h6>
+                                <h3 class="title"><a><b class="light-color">${data[i].title}</b></a></h3>
+                                <p>${data[i].content}</p>
+                                <a class="btn read-more-btn" href="/blog-detail/${data[i].id}"><b>READ MORE</b></a>
+                            </div>
+                        </div>
+                        `
+            }
+            document.getElementById('blog_list').innerHTML = str;
+
+            $('.title').on('click', function (){
+                window.location.href = '/blog-detail/' + $(this).parent().find('span').text()
+            })
+
+            $('.post_img').on('click', function (){
+                window.location.href = '/blog-detail/' + $(this).parent().parent().find('span').text()
+            })
+
+
+        }
+        function load_page(){
+                    var page = ''
+                    page +=
+                        `
+                        <ul class="pagination" style="margin-left: auto; margin-right: auto; text-align: center">
+                        `
+                    if(pre_page == cur_page){
+                        page +=`<li class="disabled"><a>&laquo;</a></li>`;
+                    }else{
+                        page +=`
+                                <li><a id = 'pre'>&laquo;</a></li>`;
+                    }
+                    for(var i=1; i<=next_page; i++){
+                        if(i<= cur_page + 3){
+                            if(i == cur_page){
+                                page += `<li class="active"><a class='page_number'>${i}</a></li>`
+                            }else{
+                                page += `<li><a class='page_number'>${i}</a></li>`
+                            }
+                        }else{
+                            page += `<li class="disabled"><a href="#">&hellip;</a></li>`
+                        }
+                    }
+                    if(next_page == cur_page){
+                        page +=`<li class="disabled"><a>&raquo;</a></li>`;
+                    }else{
+                        page +=`<li><a id = 'next'>&raquo;</a></li>`;
+                    }
+                    page +=`<div style="clear: both"></div></ul>`;
+                    document.getElementById('page').innerHTML = page
+                    $('#pre').on('click', function (){
+                        cur_page -= 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('#next').on('click', function (){
+                        cur_page += 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('.page_number').on('click', function (){
+                        cur_page = $(this).text()
+                        load_page();
+                        load_flower(item_list);
+                    })
+
+        }
+    </script>
+
+</body>
+</html>

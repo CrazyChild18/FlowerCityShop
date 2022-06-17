@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ _('Staff Chat') }}</title>
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="../../static/chat/assets/css/style-starter.css">
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+</head>
+
+<section>
+    <!-- main content start -->
+    <div class="main-content" style="margin-left: 7%; margin-right: 7%">
+        <!-- content -->
+        <div class="container-fluid content-top-gap">
+            <!-- chatting -->
+            <div class="data-tables">
+                <div class="row">
+                    <div class="col-lg-12 chart-grid mb-4">
+                        <div class="card card_border p-4">
+                            <div class="card-header chart-grid__header pl-0 pt-0" style="text-align: center">
+                                <b><h2>Chatting</h2></b>
+                            </div>
+                            <div class="card-header chart-grid__header pl-0 pt-0"
+                                 style="float: right; width: 40%; display: inline-block">
+                                <a href="{{ url_for('admin.admin_main_new') }}"><img
+                                        src="../../static/chat/assets/images/back.png"
+                                        style="width: 20px; margin-right: 2%">{{ _('Back') }}</a>
+                            </div>
+                            <div class="messaging">
+                                <div class="inbox_msg">
+                                    <div class="inbox_people">
+                                        <div class="inbox_chat">
+                                        </div>
+                                    </div>
+                                    <div class="mesgs">
+                                        <div class="msg_history">
+                                            <h4 style="text-align: center">{{ _('Welcome to Chat Room') }}</h4>
+                                            <h4 style="text-align: center">{{ _('Choose Person to Chat') }}</h4>
+                                        </div>
+                                        <div class="type_msg">
+                                            <input type="text" class="write_msg" placeholder="Type a message"/>
+                                                        <button class="msg_send_btn" type="button" id="sendButton"><i
+                                                                class="fa fa-paper-plane-o"
+                                                                aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="../../static/chat/assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/chat/assets/js/jquery-1.10.2.min.js"></script>
+
+
+<script src="../../static/chat/assets/js/jquery.nicescroll.js"></script>
+<script src="../../static/chat/assets/js/scripts.js"></script>
+
+<!-- close script -->
+<script>
+    var closebtns = document.getElementsByClassName("close-grid");
+    var i;
+
+    for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+            this.parentElement.style.display = 'none';
+        });
+    }
+</script>
+<!-- //close script -->
+
+<!-- disable body scroll when navbar is in active -->
+<script>
+    $(function () {
+        $('.sidebar-menu-collapsed').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
+<!-- disable body scroll when navbar is in active -->
+
+<!-- loading-gif Js -->
+<script src="assets/js/modernizr.js"></script>
+<script>
+    $(window).load(function () {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+    });
+</script>
+<!--// loading-gif Js -->
+
+<!-- Bootstrap Core JavaScript -->
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="../../static/admin/assets/js/jquery-3.5.1.js"></script>
+<script>
+    var targetID
+    init()
+    setInterval(longPolling, 20000)
+    $('#sendButton').on('click', sendMessage)
+
+    function init() {
+        getChatList()
+    }
+    function getChatList() {
+        $.ajax({
+            type: 'post',
+            url: '/getChatList',
+            success: function (response) {
+                data = response
+                showChatList(data)
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+    }
+
+    function showChatList(data) {
+        str = ''
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].status == 1) {
+                str += `
+                        <div class="chat_list active_chat">
+                                                <div class="chat_people" title="${data[i].uid}">
+                                                    <div class="chat_img"><img
+                                                            src="../../static/chat/assets/images/avatar5.jpg"
+                                                            alt="Alexander" class="img-fluid">
+                                                    </div>
+                                                    <div class="chat_ib">
+                                                        <h5 class="name">${data[i].name}<span class="chat_date">1 hour ago</span></h5>
+                                                        <p class="status">Message!</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    `
+            } else {
+                str +=`
+                    <div class="chat_list active_chat">
+                                                <div class="chat_people" title="${data[i].uid}">
+                                                    <div class="chat_img"><img
+                                                            src="../../static/chat/assets/images/avatar5.jpg"
+                                                            alt="Alexander" class="img-fluid">
+                                                    </div>
+                                                    <div class="chat_ib">
+                                                        <h5 class="name">${data[i].name}<span class="chat_date">1 hour ago</span></h5>
+                                                        <p class="status">Free</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                `
+            }
+        }
+        document.getElementsByClassName('inbox_chat')[0].innerHTML = str;
+        $('.chat_people').on('click', function () {
+            name = $(this).find('.name').html()
+            {#刷新chat list的状态框#}
+            $(this).find('.status').html('<i class="fa fa-circle left"></i> free')
+            $('.chat-with').html(name)
+            {#得到与chat person 的 chat history#}
+            targetID = this.title
+            getMessage(this.title)
+        })
+    }
+
+    {#用来得到后端的信息并显示#}
+
+    function getMessage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/getChatMessage',
+            data: {'person': id},
+            success: function (response) {
+                data = response
+                showMessage(data)
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+     }
+
+    {#显示信息#}
+
+    function showMessage(data) {
+        var str = ''
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].receiver == '{{ current_user.username }}') {
+                str += `
+                    <div class="incoming_msg">
+                                                <div class="incoming_msg_img"><img
+                                                        src="../../static/chat/assets/images/avatar5.jpg"
+                                                        alt="Alexander"
+                                                        class="img-fluid"></div>
+                                                <div class="received_msg">
+                                                    <div class="received_withd_msg">
+                                                        <p>${data[i].message}
+                                                        </p>
+                                                        <span class="time_date"> ${data[i].system_time}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                `
+            } else {
+                str += `
+                    <div class="outgoing_msg">
+                                                <div class="sent_msg">
+                                                    <p>${data[i].message}</p>
+                                                    <span class="time_date"> ${data[i].system_time}</span>
+                                                </div>
+                                            </div>
+                `
+            }
+        }
+        document.getElementsByClassName('msg_history')[0].innerHTML = str;
+        {#将消息拉到最底部#}
+        {#注意消息量不同scrollHeight也不同#}
+        var scrollHeight = $('.msg_history').prop("scrollHeight");
+        $('.msg_history').scrollTop(scrollHeight)
+     }
+
+    function sendMessage() {
+        id = targetID
+        text = $('.write_msg').val()
+        user = '{{ current_user.username }}'
+        $.ajax({
+            type: 'post',
+            url: '/storeMessage',
+            data: {'uid': id, 'text': text},
+            success: function (response) {
+                $('.msg_history').append(
+                    `
+                    <div class="outgoing_msg">
+                                                <div class="sent_msg">
+                                                    <p>${text}</p>
+                                                    <span class="time_date"> ${response}</span>
+                                                </div>
+                                            </div>
+                    `
+                );
+                {#消息刷新时将chat-history框拉到最低端#}
+                var scrollHeight = $('.msg_history').prop("scrollHeight");
+                $('.msg_history').scrollTop(scrollHeight)
+                $('.write_msg').val('')
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+     }
+
+    function longPolling() {
+        $.ajax({
+            type: 'post',
+            url: '/refreshChatList',
+            success: function (response) {
+                if (response == '1') {
+                    getChatList()
+                    if (targetID != null) {
+                        getMessage(targetID)
+                    }
+                }
+            },
+            error: function () {
+                alert('connection error')
+            }
+
+        })
+     }
+
+
+
+
+</script>
+
+</body>
+
+</html>
+  

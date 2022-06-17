@@ -1,0 +1,614 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Shop List') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../static/assets/css/style.css">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        {% include 'main_title.html' %}
+
+        <!--Page Banner Start-->
+        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Products') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('Products') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--Shop Start-->
+        <div class="shop-page section-padding-6">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-9">
+
+                        <!--Shop Top Bar Start-->
+                        <div class="shop-top-bar d-sm-flex align-items-center justify-content-between">
+                            <div class="top-bar-page-amount" style="margin-left: auto; margin-right: auto">
+                                <p>{{ _('Showing 1 - 9 of 9 result') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="grid" role="tabpanel">
+                                <div class="row" id="flower_list">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="page"></div>
+
+                    </div>
+
+                    <div class="sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="wrapper-sidebar shop-sidebar">
+                            <div class="widget woof_Widget">
+                                <div class="widget widget-categories">
+                                    <h3 class="widgettitle">{{ _('Category') }}</h3>
+                                    <ul class="list-categories">
+                                        <li>
+                                            <input type="checkbox" id="r1" value="Flowers" onclick="update()">
+                                            <label for="r1" class="label-text">{{ _('Flower') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="r2" value="Dried"  onclick="update()">
+                                            <label for="r2" class="label-text">{{ _('Dried Flower') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="r3" value="Potted"  onclick="update()">
+                                            <label for="r3" class="label-text">{{ _('Potted Flower')}}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="r4" value="Tool"  onclick="update()">
+                                            <label for="r4" class="label-text">{{ _('Tool') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="r5" value="Gift Suit"  onclick="update()">
+                                            <label for="r5" class="label-text">{{ _('Gift Suit')}}</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget widget-categories">
+                                    <h3 class="widgettitle">{{ _('Application') }}</h3>
+                                    <ul class="list-categories">
+                                        <li>
+                                            <input type="checkbox" id="cb1" value="love" onclick="update()">
+                                            <label for="cb1" class="label-text">{{ _('Love') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb2" value="birthday"  onclick="update()">
+                                            <label for="cb2" class="label-text">{{ _('Birthday') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb3" value="friendship"  onclick="update()">
+                                            <label for="cb3" class="label-text">{{ _('Friendship') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb4" value="apology"  onclick="update()">
+                                            <label for="cb4" class="label-text">{{ _('Apology') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb5" value="marriage"  onclick="update()">
+                                            <label for="cb5" class="label-text">{{ _('Marriage') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb6" value="business"  onclick="update()">
+                                            <label for="cb6" class="label-text">{{ _('Business') }}</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="cb7" value="other"  onclick="update()">
+                                            <label for="cb7" class="label-text">{{ _('Other') }}</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget widget_filter_price">
+                                    <h4 class="widgettitle">
+                                        {{ _('Price') }}
+                                    </h4>
+                                    <div class="price-slider-wrapper">
+                                        <div data-label-reasult="Range:" data-min="0" data-max="100" data-unit="$"
+                                             class="slider-range-price " data-value-min="0" data-value-max="100">
+                                        </div>
+                                        <div class="price-slider-amount">
+                                            <span class="from">$0</span>
+                                            <span class="to">$100</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget widget-color">
+                                    <h4 class="widgettitle">
+                                        Color
+                                    </h4>
+                                    <span id="from" style="display: none"></span>
+                                    <span id="to" style="display: none"></span>
+                                    <div class="list-color">
+                                        <span id="current_color" style="display: none"></span>
+                                        <a class="color1" id="none" style="top: -11px; border: red 3px solid" onclick="select_color('none')"><img src="../static/images/no.png"><div style="clear: both"></div></a>
+                                        <a class="color2" id="yellow" onclick="select_color('yellow')"></a>
+                                        <a class="color3" id="blue" onclick="select_color('blue')"></a>
+                                        <a class="color4" id="purple" onclick="select_color('purple')"></a>
+                                        <a class="color5" id="pink" onclick="select_color('pink')"></a>
+                                        <a class="color6" id="green" onclick="select_color('green')"></a>
+                                        <a class="color7" id="skyblue" onclick="select_color('skyblue')"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Shop End-->
+
+
+        {% include 'public_foot.html' %}
+
+
+        <!--Back To Start-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+        <!--Back To End-->
+
+
+
+
+        <!-- Quick View-->
+        <div class="modal fade" id="exampleModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                    <span id="value" style="display: none"></span>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="quick-view-image">
+                                    <img id="image" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="quick-view-content">
+                                    <h4 class="product-title"></h4>
+                                    <div class="thumb-price">
+                                        <span class="current-price"></span>
+{#                                        <span class="old-price">$29.00</span>#}
+                                        <span class="discount">VIP -10%</span>
+                                    </div>
+                                    <div class="product-rating">
+                                        <ul class="rating-star">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                    </div>
+                                    <p id="introduction"></p>
+
+                                    <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                        <form action="#">
+                                            <div class="quantity d-inline-flex">
+                                                <button type="button" class="sub"><i class="ti-minus"></i></button>
+                                                <input id="number" type="text" value="1" />
+                                                <button type="button" class="add"><i class="ti-plus"></i></button>
+                                            </div>
+                                        </form>
+                                        <div class="addcart-btn">
+                                            <button type="button" id="submit" class="btn btn-primary">{{ _('Add to cart')}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="../static/js/vendor/popper.min.js"></script>
+    <script src="../static/js/vendor/bootstrap.min.js"></script> -->
+
+    <!-- Plugins JS -->
+    <!-- <script src="../static/js/plugins/swiper-bundle.min.js"></script>
+    <script src="../static/js/plugins/jquery.countdown.min.js"></script>
+    <script src="../static/js/plugins/jquery.elevateZoom.min.js"></script>
+    <script src="../static/js/plugins/select2.min.js"></script>
+    <script src="../static/js/plugins/ajax-contact.js"></script> -->
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+
+    <!-- Google Map js -->
+{#    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#    <script src="../static/js/map-script.js"></script>#}
+    <script src="../static/assets/js/jquery-1.12.4.min.js"></script>
+    <script src="../static/assets/js/jquery.plugin-countdown.min.js"></script>
+    <script src="../static/assets/js/jquery-countdown.min.js"></script>
+    <script src="../static/assets/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/owl.carousel.min.js"></script>
+    <script src="../static/assets/js/magnific-popup.min.js"></script>
+    <script src="../static/assets/js/isotope.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollbar.min.js"></script>
+    <script src="../static/assets/js/jquery-ui.min.js"></script>
+    <script src="../static/assets/js/mobile-menu.js"></script>
+    <script src="../static/assets/js/chosen.min.js"></script>
+    <script src="../static/assets/js/slick.js"></script>
+    <script src="../static/assets/js/jquery.elevateZoom.min.js"></script>
+    <script src="../static/assets/js/jquery.actual.min.js"></script>
+    <script src="../static/assets/js/fancybox/source/jquery.fancybox.js"></script>
+    <script src="../static/assets/js/lightbox.min.js"></script>
+    <script src="../static/assets/js/owl.thumbs.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollbar.min.js"></script>
+    <script src="../static/assets/js/frontend-plugin.js"></script>
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+    <script>
+        $('#current_color').html('none')
+        $('#from').html($('.from').text())
+        $('#to').html($('.to').text())
+        setInterval(check_price, 1800)
+
+        var item_list
+        var item_number = 9
+        var pre_page = 1
+        var next_page
+        var cur_page = 1
+        $.ajax({
+                type: 'post',
+                url: '/search_flower',
+                data: {'data': '{{ items }}' },
+                success: function (data) {
+                    item_list = data
+                    next_page = Math.ceil(data.length / item_number)
+                    load_page()
+                    load_flower(data)
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+
+        function update() {
+            var vals = [];
+            $('input:checkbox:checked').each(function () {
+                {#alert($(this).val())#}
+                vals.push($(this).val());
+            });
+            if (vals.length == 0){
+                test = '%null%'
+            }else{
+                test = JSON.stringify(vals)
+            }
+            $.ajax({
+                type: 'post',
+                url: '/load_flower',
+                data: {'data': test},
+                success: function (data) {
+                    item_list = data
+                    cur_page = 1
+                    next_page = Math.ceil(data.length / item_number)
+                    load_page()
+                    load_flower(data)
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        }
+
+        function check_price(){
+            var old_from = $('#from').text()
+            var old_to = $('#to').text()
+            var new_from = $('.price-slider-amount').find('span').eq(0).text()
+            var new_to = $('.price-slider-amount').find('span').eq(1).text()
+            if(old_from != new_from || old_to != new_to){
+                $.ajax({
+                type: 'post',
+                url: '/load_flower_price',
+                data: {'from': new_from,
+                        'to': new_to},
+                success: function (data) {
+                    item_list = data
+                    cur_page = 1
+                    next_page = Math.ceil(data.length / item_number)
+                    load_page()
+                    load_flower(data)
+                    $('#from').html(new_from)
+                    $('#to').html(new_to)
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+            }
+        }
+        function select_color(color){
+            $.ajax({
+                type: 'post',
+                url: '/load_flower_color',
+                data: {'color': color},
+                success: function (data) {
+                    var current_color = document.getElementById($('#current_color').text())
+                    current_color.style.border = 'none'
+                    var new_color = document.getElementById(color)
+                    new_color.style.border = 'red 3px solid'
+                    $('#current_color').html(color)
+                    item_list = data
+                    cur_page = 1
+                    next_page = Math.ceil(data.length / item_number)
+                    load_page()
+                    load_flower(data)
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        }
+        function load_flower(data){
+                    var str = ''
+                    var up
+                    if(cur_page==next_page){
+                         up = item_list.length
+                    }else{
+                         up = cur_page * item_number
+                    }
+                    if(next_page==0){
+                        up = 0
+                    }
+                    for (var i = (cur_page-1) * item_number; i < up; i++) {
+                        var grade = data[i].grade
+                        str += `
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="single-product">
+                                <div class="product-image">
+                                    <a class='product_img' title="${data[i].id}">
+                                        <img class="image_hit" src="../static/uploaded_AVATAR/${data[i].pic}" alt="">
+                                    </a>
+                                    <span class="sticker-new soldout-title">VIP -10%</span>
+                                    `
+
+                        str+=
+                         `<div class="action-links">
+                            <ul>
+                                <li style="display: none">${data[i].id}</li>
+                                <li style="display: none">${data[i].pic}</li>
+                                <li style="display: none">${data[i].name}</li>
+                                <li style="display: none">${data[i].price}</li>
+                                <li style="display: none">${data[i].grade}</li>
+                                <li style="display: none">${data[i].intro}</li>
+                                <li><a class='list_add_cart' data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                <li><a class='list_add_wishlist' data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                <li><a href="" class="quick_view" data-tooltip="tooltip" data-placement="left" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-content text-center">
+                        <ul class="rating">
+                        `
+                        for(var j=2; j<=10; j+=2) {
+                            if (grade >= j) {
+                                str += `<li class="rating-on"><i class="fa fa-star"></i></li>`
+                            } else {
+                                str += `<li class="rating-on"><i class="fa fa-star-o"></i></li>`
+                            }
+                        }
+                        str+=
+                                    `</ul>
+                                    <h4 class="product-name"><a class="product_detail" title="${data[i].id}">${data[i].name}</a></h4>
+                                    <div class="price-box">
+                                        <span class="current-price">$ ${data[i].price}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    }
+                    document.getElementById('flower_list').innerHTML = str;
+                    $('.list_add_cart').on('click', function (){
+                        {#alert($(this).parent().closest('ul').find('li').eq(0).text())#}
+                        window.location.href = '/list_add_cart/'+ $(this).closest('ul').find('li').eq(0).text() + '%%{{ items }}'
+                    })
+                    $('.list_add_wishlist').on('click', function (){
+                        window.location.href = '/list_add_wishlist/' + $(this).closest('ul').find('li').eq(0).text() + '%%{{ items }}'
+                    })
+                    $('.product_detail').on('click', function (){
+                        window.location.href = '/product_detail/'+ this.title
+                    })
+                    $('.product_img').on('click', function (){
+                        window.location.href = '/product_detail/' + this.title
+                    })
+
+                    $('.product_detail').on('click', function (){
+                        $.ajax({
+                            type: 'post',
+                            url: '/hit',
+                            data: {
+                                'id': this.title,
+                            },
+                            success: function (data) {
+                            },
+                            error: function () {
+                                alert('wrong')
+                            }
+                        });
+                    })
+
+                    $('.product_img').on('click', function (){
+                        $.ajax({
+                            type: 'post',
+                            url: '/hit',
+                            data: {
+                                'id': this.title,
+                            },
+                            success: function (data) {
+
+                            },
+                            error: function () {
+                                {#alert('123')#}
+                            }
+                        });
+                    })
+
+                    $('.quick_view').on('click', function (){
+                        $('#number').val(1)
+                        $('#value').html($(this).closest('ul').find('li').eq(0).text())
+                        $('.product-title').text($(this).closest('ul').find('li').eq(2).text())
+                        var path = '../static/uploaded_AVATAR/' + $(this).closest('ul').find('li').eq(1).text()
+                        $('#image').attr('src', path)
+                        $('.current-price').html($(this).closest('ul').find('li').eq(3).text())
+
+                        var grade = $(this).closest('ul').find('li').eq(4).text()
+                        if(grade >= 2){
+                            $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star')
+                        }else{
+                            $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star-o')
+                        }
+                        if(grade >= 4){
+                            $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star')
+                        }else{
+                            $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star-o')
+                        }
+                        if(grade >= 6){
+                            $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star')
+                        }else{
+                            $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star-o')
+                        }
+                        if(grade >= 8){
+                            $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star')
+                        }else{
+                            $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star-o')
+                        }
+                        if(grade >= 10){
+                            $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star')
+                        }else{
+                            $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star-o')
+                        }
+                        $('#introduction').html($(this).closest('ul').find('li').eq(5).text())
+                    })
+
+                    $('#submit').on('click', function (){
+                        $.ajax({
+                            type: 'post',
+                            url: '/quick_view_add_cart',
+                            data: {
+                                'id': $('#value').text(),
+                                'number': $('#number').val()
+                            },
+                            success: function (data) {
+                                if (data == 'success'){
+                                    window.location.href = '/cart'
+                                }
+                            },
+                            error: function () {
+                                alert('wrong')
+                            }
+                        });
+                    })
+                    }
+        function load_page(){
+                    var page = ''
+                    page +=
+                        `
+                        <ul class="pagination" style="margin-left: auto; margin-right: auto; text-align: center">
+                        `
+                    if(pre_page == cur_page){
+                        page +=`<li class="disabled"><a>&laquo;</a></li>`;
+                    }else{
+                        page +=`
+                                <li><a id = 'pre'>&laquo;</a></li>`;
+                    }
+                    for(var i=1; i<=next_page; i++){
+                        if(i<= cur_page + 3){
+                            if(i == cur_page){
+                                page += `<li class="active"><a class='page_number'>${i}</a></li>`
+                            }else{
+                                page += `<li><a class='page_number'>${i}</a></li>`
+                            }
+                        }else{
+                            page += `<li class="disabled"><a href="#">&hellip;</a></li>`
+                        }
+                    }
+                    if(next_page == cur_page){
+                        page +=`<li class="disabled"><a>&raquo;</a></li>`;
+                    }else{
+                        page +=`<li><a id = 'next'>&raquo;</a></li>`;
+                    }
+                    page +=`<div style="clear: both"></div></ul>`;
+                    document.getElementById('page').innerHTML = page
+                    $('#pre').on('click', function (){
+                        cur_page -= 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('#next').on('click', function (){
+                        cur_page += 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('.page_number').on('click', function (){
+                        cur_page = $(this).text()
+                        load_page();
+                        load_flower(item_list);
+                    })
+
+        }
+    </script>
+</body>
+
+</html>

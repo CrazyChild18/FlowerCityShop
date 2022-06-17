@@ -1,0 +1,322 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Checkout') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner-->
+        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Checkout') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('Checkout') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--Register-->
+        <div class="checkout-page section-padding-5">
+            <div class="container">
+                <form action="#" method="post">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="checkout-form mt-30">
+                                <div class="checkout-title">
+                                    <h4 class="title">{{ _('Billing details') }}</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="single-form">
+                                            <label>{{ _('Your name') }}</label>
+                                            <input type="text" id="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-form">
+                                            <label>{{ _('Phone *') }}</label>
+                                            <input type="text" id="phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-select2">
+                                            <label>{{ _('Country *') }}</label>
+                                            <input type="text" id="nation">
+{#                                            <div class="form-select2">#}
+{#                                                <select class="select2" id="nation">#}
+{#                                                    <option value="0">Select a country…</option>#}
+{#                                                    <option value="1">Bangladesh</option>#}
+{#                                                    <option value="2">Canada</option>#}
+{#                                                    <option value="3">Colombia</option>#}
+{#                                                    <option value="4">Indonesia</option>#}
+{#                                                    <option value="5">Italy</option>#}
+{#                                                    <option value="6">Pakistan</option>#}
+{#                                                    <option value="7">Turkey</option>#}
+{#                                                </select>#}
+{#                                            </div>#}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <label>{{ _('Town / City *') }}</label>
+                                            <input type="text" id="city">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <label>{{ _('Address *') }}</label>
+                                            <input type="text" placeholder="" id="address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="checkout-review-order mt-30">
+                                <div class="checkout-title">
+                                    <h4 class="title">{{ _('Your Order') }}</h4>
+                                </div>
+
+                                <div class="checkout-review-order-table table-responsive mt-15">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="Product-name">{{ _('Product') }}</th>
+                                                <th class="Product-price">{{ _('Total') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in items %}
+                                                <tr>
+                                                    <td class="Product-name">
+                                                        <p>{{ item.flower_cart.name}} × <span>{{ item.number }}</span></p>
+                                                    </td>
+                                                    <td class="Product-price">
+                                                        <p>${{ item.flower_cart.price * item.number }}</p>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="Product-name">
+                                                    <p>{{ _('Subtotal') }}</p>
+                                                </td>
+                                                <td class="Product-price">
+                                                    {% if current_user.isVIP %}
+                                                        <p style="text-decoration: line-through">{{ _('Original Price') }}: {{ number / 0.9 }}</p>
+                                                        <p id="subtotal">{{ _('VIP Price(90 percent discount)') }}: {{ number }}</p>
+                                                    {% else %}
+                                                        <p id="subtotal">{{ number }}</p>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Product-name">
+                                                    <p>{{ _('Shipping') }}</p>
+                                                </td>
+                                                <td class="Product-price">
+                                                    <ul class="shipping-list">
+                                                        <li class="cus-radio">
+                                                            <input type="radio" name="shipping" id="radio1" checked onclick="totalP1()">
+                                                            <label for="radio1"><span></span> {{ _('Flat Rate ($10)') }}</label>
+                                                        </li>
+                                                        <li class="cus-radio">
+                                                            <input type="radio" name="shipping" id="radio2" onclick="totalP2()">
+                                                            <label for="radio2"><span></span> {{ _('Free Shipping (free)') }}</label>
+                                                        </li>
+                                                        <li class="cus-radio">
+                                                            <input type="radio" name="shipping" id="radio3" onclick="totalP3()">
+                                                            <label for="radio3"><span></span> {{ _('Local Pickup ($5)') }}</label>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Product-name">
+                                                    <p>{{ _('Pay') }}</p>
+                                                </td>
+                                                <td class="Product-price">
+                                                    <ul id="payment">
+                                                        <li class="cus-checkbox">
+                                                            <input type="checkbox" name="shipping" id="radio4" class="checkbox" checked>
+                                                            <label for="radio4"><span></span>{{ _('QR Pay') }}</label>
+                                                        </li>
+                                                        <li class="cus-checkbox">
+                                                            <input type="checkbox" name="shipping" id="radio5" class="checkbox">
+                                                            <label for="radio5"><span></span> {{ _('VIP Card Pay') }}</label>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="Product-name">
+                                                    <p>{{ _('Total') }}</p>
+                                                </td>
+                                                <td class="total-price">
+                                                    <p id="total_price">{{ number + 10 }}</p>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="checkout-payment">
+                                    <div class="checkout-btn">
+                                        <button type="button" class="btn btn-primary btn-block" id="place_order" onclick="payment()">
+                                            {{ _('Place Order')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="../static/js/vendor/popper.min.js"></script>
+    <script src="../static/js/vendor/bootstrap.min.js"></script> -->
+
+    <!-- Plugins JS -->
+    <!-- <script src="../static/js/plugins/swiper-bundle.min.js"></script>
+    <script src="../static/js/plugins/jquery.countdown.min.js"></script>
+    <script src="../static/js/plugins/jquery.elevateZoom.min.js"></script>
+    <script src="../static/js/plugins/select2.min.js"></script>
+    <script src="../static/js/plugins/ajax-contact.js"></script> -->
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+
+
+    <!-- Google Map js -->
+{#    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#    <script src="../static/js/map-script.js"></script>#}
+    <script>
+        total_Price = document.getElementById('total_price')
+        Price = document.getElementById('subtotal')
+
+        $.ajax({
+                type: 'get',
+                url: '/information',
+                success: function (data) {
+                    if(data!='none'){
+                        fill(data)
+                    }
+                },
+             })
+
+        function fill(data){
+            $('#name').val(data['name']);
+            $('#city').val(data['city']);
+            {#let country = data['nation'];#}
+            {#alert($("#nation").find("option:selected").text());#}
+            $('#nation').val(data['nation'])
+            $('#phone').val(data['phone']);
+            $('#address').val(data['address']);
+        }
+
+        function totalP1(){
+            total_Price.innerText = '$' + (parseInt(Price.innerText) + 10.0) + '.0'
+        }
+        function totalP2(){
+            total_Price.innerText = '$' + parseInt(Price.innerText) + '.0'
+        }
+        function totalP3(){
+            total_Price.innerText = '$' + (parseInt(Price.innerText) + 5.0) + '.0'
+        }
+        $('#place_order').click(function () {
+            data = {'total': $('#total_price').html(),
+                'name': $('#name').val(),
+                'city': $('#city').val(),
+                'nation': $('#nation').val(),
+                'phone': $('#phone').val(),
+                'address': $('#address').val()
+                }
+            $.ajax({
+                type: 'post',
+                url: '/buy',
+                data: data,
+                success: function (data) {
+                    if(data == 'success'){
+                        window.location.href = '/index'
+                    }
+                },
+                error:function (){
+                    alert('wrong')
+                }
+             })
+        })
+
+        $('.checkbox').on('click', function (){
+            if($(this).attr('id') == 'radio4'){
+                document.getElementById('radio5').checked = false
+                this.checked = true
+            }else{
+                document.getElementById('radio4').checked = false
+                this.checked = true
+            }
+
+        })
+    </script>
+    <script type="text/javascript">
+        function payment(){
+            let total = $("#total_price").text().split("$").join();
+            if(total > {{ deposit }}){
+                alert("余额不足!!!");
+            }else{
+                window.location.href = "{{ url_for('main.payment') }}?total=" + total;
+            }
+        }
+    </script>
+</body>
+
+</html>

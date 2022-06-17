@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Staff Profile') }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header card-no-border fix-sidebar">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        {% include 'admin_new/admin_head_bar.html' %}
+
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Staff Profile') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ _('Profile') }}</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <center class="m-t-30">
+                                    {% if current_user.avatar != None %}
+                                        <img src="../../static/images/avatar/{{ current_user.avatar }}" class="img-circle" width="100" />
+                                    {% else %}
+                                        <img src="../../static/images/avatar/head.png" class="img-circle" width="100" />
+{#                                        <img style="width: 100%; height: 100%" src="../../static/images/avatar/head.png" class="img-circle" width="100px" id="choice">#}
+                                        <input style="display: none" type="file" name="file" accept="image/*" value="0" id="changehead" onchange="read(this)">
+                                    {% endif%}
+                                    <h4 class="card-title m-t-10">{{ current_user.username }}</h4>
+                                    <h6 class="card-subtitle">Email: {{ current_user.email }}</h6>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <!-- Tab panes -->
+                            <div class="card-body">
+                                <form class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">{{ _('Staff Name') }}</label>
+                                        <div class="col-md-12">
+                                            {% if current_user.name == None %}
+                                                <input id="name" type="text" placeholder="You haven't enter your name before!" class="form-control form-control-line">
+                                            {% else %}
+                                                <input id="name" type="text" placeholder='{{ current_user.name }}' class="form-control form-control-line">
+                                            {% endif%}
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">{{ _('Phone No.') }}</label>
+                                        <div class="col-md-12">
+                                            {% if current_user.name == None %}
+                                                <input id="phone" type="text" placeholder="You haven't enter your phone number before!" class="form-control form-control-line">
+                                            {% else %}
+                                                <input id="phone" type="text" placeholder='{{ current_user.phone }}' class="form-control form-control-line">
+                                            {% endif%}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12">{{ _('Enter Country') }}</label>
+                                        <div class="col-sm-12">
+                                            {% if current_user.name == None %}
+                                                <input id="country" type="text" placeholder="You haven't enter your country before!" class="form-control form-control-line">
+                                            {% else %}
+                                                <input id="country" type="text" placeholder='{{ current_user.country }}' class="form-control form-control-line">
+                                            {% endif%}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">{{ _('Age') }}</label>
+                                        <div class="col-md-12">
+                                            <input id="age" type="text" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">{{ _('Password') }}</label>
+                                        <div class="col-md-12">
+                                            <input id="password" type="text" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="button" id="update_button" class="btn btn-success">{{ _('Update
+                                                    Profile') }}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <footer class="footer">Copyright &copy; 2021 Newbility</footer>
+        </div>
+
+    </div>
+
+
+
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+
+    <script>
+        $('#update_button').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/admin/update_profile',
+                data: {
+                    'name': $('#name').val(),
+                    'age' : $('#age').val(),
+                    'phone': $('#phone').val(),
+                    'password': $('#password').val(),
+                    'country': $('#country').val()
+                },
+                success: function (data) {
+                    if (data == 'success'){
+                        alert('success')
+                        $('#name').attr('placeholder', $('#name').val()),
+                        $('#age').attr('placeholder', $('#age').val()),
+                        $('#phone').attr('placeholder', $('#phone').val()),
+                        $('#password').attr('placeholder', $('#password').val()),
+                        $('#country').attr('placeholder', $('#country').val())
+                        $('#name').val('')
+                        $('#age').val('')
+                        $('#phone').val('')
+                        $('#password').val('')
+                        $('#country').val('')
+                    }
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

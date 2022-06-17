@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>{{ _('My Blog') }}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+	<link href="../../static/blog/03-About-me/css/styles.css" rel="stylesheet">
+	<link href="../../static/blog/03-About-me/css/responsive.css" rel="stylesheet">
+
+</head>
+<body>
+
+    {% include 'blog/blog_head.html' %}
+
+	<section class="blog-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="blog-posts">
+						<div class="single-post">
+							<div class="image-wrapper"><img src="../../static/blog/images/blog-2-1000x600.jpg" alt="Blog Image"></div>
+
+							<div class="icons">
+								<div class="left-area">
+									<a class="btn caegory-btn" href="#"><b>{{ _('Follow') }}</b></a>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="recomend-area">
+							<h4 class="title"><b class="light-color">{{ _('The posts I shared') }}</b></h4>
+							<div class="row">
+                                {% for post in posts %}
+                                    <div class="col-md-6">
+                                        <div class="recomend">
+                                            <div class="post-image"><img src="../../static/blog_PIC/{{ post.title }}0.jpg" alt="Post Image"></div>
+                                            <div class="post-info">
+                                                <h5 class="title"><a href="#"><b class="light-color">{{ post.title }}</b></a></h5>
+                                                <h6 class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></h6>
+                                                <p>{{ post.content }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+
+						<div class="sidebar-section about-author center-text">
+							<div class="author-image"><img src="../../static/blog/images/author-1-200x200.jpg" alt="Autohr Image"></div>
+
+							<h4 class="author-name"><b class="light-color">{{ current_user.username }}</b></h4>
+
+							<div class="signature-image"><img src="../../static/blog/images/signature-image.png" alt="Signature Image"></div>
+
+						</div><!-- sidebar-section about-author -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!--Add Blog-->
+    <a class="btn load-more-btn" target="_blank" href="{{ url_for('main.blog_add') }}" style="position: fixed; bottom: 100px; z-index: 99; right: 20px">
+        <img src="../../static/images/add_comment.png" style="width: 20px; margin-right: 10px; border: #0a001f 2px solid; border-radius: 10px">
+        <b>Write Blog</b>
+    </a>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+
+	<script src="../../static/blog/common-js/jquery-3.1.1.min.js"></script>
+	<script src="../../static/blog/common-js/tether.min.js"></script>
+	<script src="../../static/blog/common-js/bootstrap.js"></script>
+{#	<script src="../../static/blog/common-js/grasp_mobile_progress_circle-1.0.0.js"></script>#}
+{#	<script src="../../static/blog/common-js/embed.videos.min.js"></script>#}
+{#	<script src="../../static/blog/common-js/jquery.circliful.min.js"></script>#}
+	<script src="../../static/blog/common-js/scripts.js"></script>
+
+</body>
+</html>

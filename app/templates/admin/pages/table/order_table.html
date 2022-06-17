@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>AlphaAdmin</title>
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/libs/datatablejs/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/css/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/libs/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../static/admin/assets/css/style.css">
+</head>
+
+<body>
+    <div class="skin-default" id="wrapper">
+
+        {% include 'admin/pages/table/left_navigator.html' %}
+        <div class="page-wrapper">
+            <div class="page-header">
+                <h1 class="title">Product Detail</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="../../admin_main.html" title="Main">
+                            <i class="iconfont icon-home"></i>
+                            <small>Main</small>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <small>Product Detail</small>
+                    </li>
+                </ol>
+            </div>
+            <section class="page-body">
+                <div class="row widget">
+                    <section class="col-md-12">
+                        <div class="box table">
+                            <div class="box-header">
+                                <h3 class="box-title"><b>Commodity Information Form</b></h3>
+                                <a href="{{ url_for('admin.add_item') }}" style="float: right; margin-right: 30px"><b>Add Item</b></a>
+                            </div>
+                            <div class="box-body">
+                                <table id="table" class="table table-responsive table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Time</th>
+                                            <th>Total Price($)</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in items %}
+                                            {% if item.finish == 0 %}
+                                                <tr style="border: red dot-dot-dash 2px">
+                                                    <td>{{ item.id }}</td>
+                                                    <td><a href="#" style="color: black">{{item.name}}</a></td>
+                                                    <td>{{ item.time }}</td>
+                                                    <td>{{ item.total }}</td>
+                                                    <td><button type="button" class="send" style="border: lightskyblue 2px double; background: lightskyblue; color: white; border-radius: 13px">Send</button></td>
+                                                </tr>
+                                            {% elif item.finish == 1 %}
+                                                <tr >
+                                                    <td>{{ item.id }}</td>
+                                                    <td><a href="#" style="color: black">{{item.name}}</a></td>
+                                                    <td>{{ item.time }}</td>
+                                                    <td>{{ item.total }}</td>
+                                                    <td><span>Delivering</span></td>
+                                                </tr>
+                                            {% elif item.finish == 2 %}
+                                                <tr style="background: lightgrey">
+                                                    <td>{{ item.id }}</td>
+                                                    <td><a href="#" style="color: black">{{item.name}}</a></td>
+                                                    <td>{{ item.time }}</td>
+                                                    <td>{{ item.total }}</td>
+                                                    <td><span>Finished</span></td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">标题</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>大屏弹窗</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Small modal -->
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">标题</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>小屏弹窗</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改密码模态框 -->
+        <div class="modal fade menu-setpassword" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">修改密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        旧密码
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="请输入旧密码" name="js-oldPassword">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        新密码
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="请输入新密码" name="js-newPassword">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        确认密码
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="请再次输入新密码" name="js-verifyPassword">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 退出提示模态框 -->
+        <div class="modal fade menu-logout" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>是否确定退出</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">登出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="../../../../static/admin/assets/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../../../../static/admin/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../static/admin/assets/libs/datatablejs/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../../../static/admin/assets/libs/datatablejs/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../static/admin/assets/js/alpha.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#table').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        })
+    })
+
+
+
+    </script>
+</body>
+
+</html>

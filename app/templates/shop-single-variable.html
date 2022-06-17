@@ -1,0 +1,801 @@
+﻿<!doctype html>
+<html class="no-js" lang="en" style="background-color: white">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Product Detail')}}</title>
+    <meta name="robots" content="noindex, follow"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="../static/chat/assets/css/style-starter.css">
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+</head>
+
+<body style="background-color: white">
+
+<div class="main-wrapper">
+
+    {% include 'main_title.html' %}
+
+    <span id="is_admin" style="display: none">{{ current_user.is_authenticated }}</span>
+    <!--Page Banner-->
+    <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+        <div class="container">
+            <div class="page-banner-content text-center">
+                <h2 class="title">{{ _('Shop Single') }}</h2>
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('main.shop_list_new', text='%null%') }}">{{ _('Shop') }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ _('Shop Single') }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!--Shop Single-->
+    <div class="shop-single-page section-padding-4">
+        <div class="container">
+
+            <!--Shop Single-->
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <!--商品图片-->
+                    <div class="shop-image">
+                        <!--主要图片-->
+                        <div class="shop-single-preview-image">
+                            <img class="product-zoom" src="../static/uploaded_AVATAR/{{ flower_in_db.pic }}" alt="">
+                        </div>
+                        <!--小图片-->
+                        <div id="gallery_01" class="shop-single-thumb-image shop-thumb-active swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide single-product-thumb">
+                                    <a class="active" href="#"
+                                       data-image="../static/uploaded_AVATAR/{{ flower_in_db.name }}_1.jpg">
+                                        <img src="../static/uploaded_AVATAR/{{ flower_in_db.name }}_1.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide single-product-thumb">
+                                    <a href="#" data-image="../static/uploaded_AVATAR/{{ flower_in_db.name }}_2.jpg">
+                                        <img src="../static/uploaded_AVATAR/{{ flower_in_db.name }}_2.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide single-product-thumb">
+                                    <a href="#" data-image="../static/uploaded_AVATAR/{{ flower_in_db.name }}_3.jpg">
+                                        <img src="../static/uploaded_AVATAR/{{ flower_in_db.name }}_3.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide single-product-thumb">
+                                    <a href="#" data-image="../static/uploaded_AVATAR/{{ flower_in_db.name }}_1.jpg">
+                                        <img src="../static/uploaded_AVATAR/{{ flower_in_db.name }}_1.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Add Arrows -->
+                            <div class="swiper-thumb-next"><i class="fa fa-angle-right"></i></div>
+                            <div class="swiper-thumb-prev"><i class="fa fa-angle-left"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <!--商品信息-->
+                <div class="col-lg-6">
+                    <div class="shop-single-content">
+                        <h3 class="title">{{ flower_in_db.name }}</h3>
+                        <div class="product-rating">
+                            <ul class="rating-star">
+                                {% if flower_in_db.grade >= 2 %}
+                                    <li class="rating-on"><i class="fa fa-star"></i></li>
+                                {% else %}
+                                    <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                {% endif %}
+                                {% if flower_in_db.grade >= 4 %}
+                                    <li class="rating-on"><i class="fa fa-star"></i></li>
+                                {% else %}
+                                    <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                {% endif %}
+                                {% if flower_in_db.grade >= 6 %}
+                                    <li class="rating-on"><i class="fa fa-star"></i></li>
+                                {% else %}
+                                    <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                {% endif %}
+                                {% if flower_in_db.grade >= 8 %}
+                                    <li class="rating-on"><i class="fa fa-star"></i></li>
+                                {% else %}
+                                    <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                {% endif %}
+                                {% if flower_in_db.grade == 10 %}
+                                    <li class="rating-on"><i class="fa fa-star"></i></li>
+                                {% else %}
+                                    <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="thumb-price">
+                            <span class="current-price">${{ flower_in_db.price }}</span>
+{#                            <span class="old-price">$29.00</span>#}
+                            <span class="discount">VIP -10%</span>
+                        </div>
+                        <p>{{ flower_in_db.intro }}</p>
+
+                        <ul class="product-additional-information">
+                            <li>
+                                {% if current_user.is_authenticated %}
+                                    <button id="open_contact" type="button"><a href="" data-tooltip="tooltip" data-placement="left" data-toggle="modal" data-target="#contact"><i class="ti-email"></i>
+                                        {{ _('Ask About This product') }}</a></button>
+                                {% else %}
+                                    <button><a href="" data-tooltip="tooltip" data-placement="left" data-toggle="modal" data-target="#login"><i class="ti-email"></i>
+                                        {{ _('Ask About This product') }}</a></button>
+                                {% endif %}
+                            </li>
+                        </ul>
+
+                        <div class="product-quantity d-flex flex-wrap align-items-center">
+                            <span class="quantity-title">{{ _('Quantity') }}: </span>
+                            <form action="#">
+                                <div class="quantity d-flex">
+                                    <button type="button" class="sub"><i class="ti-minus"></i></button>
+                                    <input type="text" value="{{ quantity }}" name="quantity" id="quantity"/>
+                                    <button type="button" class="add"><i class="ti-plus"></i></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="product-action d-flex flex-wrap">
+                            <div class="action">
+                                <button class="btn btn-primary" type="button" id="add_to_cart" style="background-color: orangered; border: orangered 1px solid"><b>{{ _('Add to cart') }}</b></button>
+                            </div>
+                            <div class="action">
+                                {% if current_user.is_authenticated %}
+                                    {% if in_wishlist %}
+                                        <a id="in_wishlist" title= {{ flower_in_db.id }}><i class="fa fa-heart"></i></a>
+                                    {% else %}
+                                        <a id="in_wishlist" title= {{ flower_in_db.id }}><i class="fa fa-heart-o"></i></a>
+                                    {% endif %}
+                                {% else %}
+                                     <a href="{{ url_for('auth.login') }}"><i class="fa fa-heart-o"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="dynamic-checkout-button disabled">
+                            <div class="checkout-checkbox">
+                                <input type="checkbox" id="disabled">
+                                <label for="disabled"><span></span> {{ _('I agree with the terms and conditions')}} </label>
+                            </div>
+                            <div class="checkout-btn">
+                                <button class="btn btn-primary" style="background-color: orangered; border: orangered 1px solid" type="button" id="buy_direct"><b>{{ _('Buy it now')}}</b></button>
+                            </div>
+                        </div>
+
+                        <div class="custom-payment-options">
+                            <p>{{ _('Guaranteed safe checkout') }}</p>
+
+                            <ul class="payment-options">
+                                <li><img src="../static/images/payment-icon/payment-1.svg" alt=""></li>
+                                <li><img src="../static/images/payment-icon/payment-2.svg" alt=""></li>
+                                <li><img src="../static/images/payment-icon/payment-3.svg" alt=""></li>
+                                <li><img src="../static/images/payment-icon/payment-4.svg" alt=""></li>
+                                <li><img src="../static/images/payment-icon/payment-5.svg" alt=""></li>
+                                <li><img src="../static/images/payment-icon/payment-7.svg" alt=""></li>
+                            </ul>
+                        </div>
+
+                        <div class="social-share">
+                            <span class="share-title">Share:</span>
+                            <ul class="social">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Shop Single info-->
+            <div class="shop-single-info">
+                <div class="shop-info-tab">
+                    <ul class="nav justify-content-center" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab1" role="tab">{{ _('Description') }}</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab2" role="tab">{{ _('Reviews') }}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                        <div class="description">
+                            <p>{{ flower_in_db.detailed }}</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab2" role="tabpanel">
+                        <div class="reviews">
+                            <h3 class="review-title">{{ _('Customer Reviews') }}</h3>
+
+                            <ul class="reviews-items">
+                                {% for comment in comments %}
+                                    <li>
+                                        <div class="single-review">
+                                            <h6 class="name">{{ flower_in_db.name }}</h6>
+                                            <div class="rating-date">
+                                                <ul class="rating">
+                                                    {% if comment.grade >= 2 %}
+                                                        <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                    {% else %}
+                                                        <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                    {% endif %}
+                                                    {% if comment.grade >= 4 %}
+                                                        <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                    {% else %}
+                                                        <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                    {% endif %}
+                                                    {% if comment.grade >= 6 %}
+                                                        <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                    {% else %}
+                                                        <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                    {% endif %}
+                                                    {% if comment.grade >= 8 %}
+                                                        <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                    {% else %}
+                                                        <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                    {% endif %}
+                                                    {% if comment.grade == 10 %}
+                                                        <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                    {% else %}
+                                                        <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                    {% endif %}
+                                                </ul>
+                                                <span class="date">{{ comment.time}}</span>
+                                            </div>
+
+                                            <p>{{ comment.content }}</p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Relative Product-->
+    <div class="new-product-area section-padding-2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-9 col-sm-11">
+                    <div class="section-title text-center">
+                        <h2 class="title">{{ _('Related Products') }}</h2>
+                        <p>{{ _('Guess you like the following products') }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-wrapper">
+                <div class="swiper-container product-active">
+                    <div class="swiper-wrapper">
+                        {% for i in flower_relative %}
+                            <div class="swiper-slide">
+                                <div class="single-product">
+                                    <div class="product-image">
+                                        <a href="{{ url_for('main.product_detail', id=i.id) }}">
+                                            <img class="image_hit" title="{{ i.id }}" src="../static/uploaded_AVATAR/{{ i.pic }}" alt="">
+                                        </a>
+                                        <span class="sticker-new soldout-title">VIP -10%</span>
+
+                                        <div class="action-links">
+                                            <ul>
+                                                {% if current_user.is_authenticated %}
+                                                    <li><a href="{{ url_for('main.cart') }}" data-tooltip="tooltip"
+                                                           data-placement="left" title="Add to cart"><i
+                                                            class="icon-shopping-bag"></i></a></li>
+                                                    <li><a href="{{ url_for('main.wishlist') }}" data-tooltip="tooltip"
+                                                           data-placement="left" title="Add to Wishlist"><i
+                                                            class="icon-heart"></i></a></li>
+                                                {% else %}
+                                                    <li><a href="{{ url_for('auth.login') }}" data-tooltip="tooltip"
+                                                           data-placement="left" title="Add to cart"><i
+                                                            class="icon-shopping-bag"></i></a></li>
+                                                    <li><a href="{{ url_for('auth.login') }}" data-tooltip="tooltip"
+                                                           data-placement="left" title="Add to Wishlist"><i
+                                                            class="icon-heart"></i></a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product-content text-center">
+                                        <ul class="rating">
+                                            {% if i.grade >= 2 %}
+                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                            {% endif %}
+                                            {% if i.grade >= 4 %}
+                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                            {% endif %}
+                                            {% if i.grade >= 6 %}
+                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                            {% endif %}
+                                            {% if i.grade >= 8 %}
+                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                            {% endif %}
+                                            {% if i.grade == 10 %}
+                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                            {% endif %}
+                                        </ul>
+                                        <h4 class="product-name"><a class="product_detail" title="{{ i.id }}" href="{{ url_for('main.product_detail', id=i.id) }}">{{ i.name }}</a>
+                                        </h4>
+                                        <div class="price-box">
+                                            <span class="current-price">${{ i.price }}</span>
+{#                                            <span class="old-price">$29.00</span>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Add Arrows -->
+                    <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
+                    <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Brand-->
+    <div class="brand-area">
+        <div class="container">
+            <div class="brand-active swiper-container">
+                <div class="swiper-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'public_foot.html' %}
+
+    <!--Back To-->
+    <a href="#" class="back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+
+    <!-- Quick View-->
+    <div class="modal fade" id="contact">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                <span id="value" style="display: none"></span>
+
+                <div class="modal-body">
+                    <!-- chatting -->
+                    <div class="data-tables">
+                        <div class="row">
+                            <div class="col-lg-12 chart-grid mb-4">
+                                <div class="card card_border p-4">
+                                    <div class="card-header chart-grid__header pl-0 pt-0" style="text-align: center">
+                                        <b><h2>{{ _('Chatting') }}</h2></b>
+                                    </div>
+                                    <div class="messaging">
+                                        <div class="inbox_msg">
+                                            <div class="inbox_people">
+                                                <div class="inbox_chat">
+                                                </div>
+                                            </div>
+                                            <div class="mesgs">
+                                                <div class="msg_history">
+                                                    <h4 style="text-align: center">{{ _('Welcome to Chat Room') }}</h4>
+                                                    <h6 style="text-align: center">{{ _('If you have any questions about the product')}}</h6>
+                                                    <h6 style="text-align: center">{{ _('Please choose any staff beside to chat')}}</h6>
+                                                </div>
+                                                <div class="type_msg">
+                                                    <div class="input_msg_write">
+                                                        <input type="text" class="write_msg" placeholder="Type a message"/>
+                                                        <button class="msg_send_btn" type="button" id="sendButton"><i
+                                                                class="fa fa-paper-plane-o"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View2-->
+        <div class="modal fade" id="login">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                    <span id="value" style="display: none"></span>
+
+                    <div class="modal-body">
+                        <div class="login-page section-padding-5">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div class="login-register-content">
+                                            <h4 class="title">{{ _('Login to Your Account')}}</h4>
+                                            <form action="" method="post" novalidate>
+                                                <div class="single-form">
+                                                    <label>{{ _('Email Address') }}</label>
+                                                    <input type="email" name="email" id="email">
+                                                </div>
+                                                <div class="single-form">
+                                                    <label>{{ _('Password') }}</label>
+                                                    <input type="password" name="password", id="password">
+                                                </div>
+                                                <div class="single-form">
+                                                    <button class="btn btn-primary btn-block" type="button" id="login_button">
+                                                        {{ _('Login') }}</button>
+                                                </div>
+                                                <div class="single-form d-flex justify-content-between">
+                                                    <div class="forget">
+                                                        <a href="{{ url_for('auth.password_reset_request') }}">{{ _('Lost Your Password')}}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="single-form">
+                                                    <label>{{ _('You do not have account ?')}}</label>
+                                                    <a href="{{ url_for('auth.register') }}" class="btn btn-dark btn-block">{{ _('Create Account Now')}}</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<!-- Modernizer JS -->
+<script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+<!-- jQuery JS -->
+<script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+
+<!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+<script src="../static/js/plugins.min.js"></script>
+
+<!-- Main JS -->
+<script src="../static/js/main.js"></script>
+
+<!-- Search -->
+    <script src="../static/js/search.js"></script>
+
+<!-- Google Map js -->
+{#<script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#<script src="../static/js/map-script.js"></script>#}
+
+<!-- 响应用户点击提交事件 -->
+{# <a href="{{ url_for('main.detail_add_cart', id=id, quantity=quantity) }}">Add to cart</a> #}
+<script type="text/javascript">
+    $('#login_button').on('click', function (){
+        var email = $('#email').val()
+        var password = $('#password').val()
+        $.ajax({
+            type: 'post',
+            url: '/auth/quick_login',
+            data: {'email': email, 'password': password},
+            success: function (data) {
+                if(data == 'success'){
+                    window.location.href = '/product_detail/{{ flower_in_db.id }}'
+                }else{
+                    alert(data)
+                }
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+    })
+    $("#add_to_cart").click(function () {
+        if($('#is_admin').text() == 'False'){
+            alert('You have not logged in yet!')
+            window.location.href = '/auth/login'
+        }else{
+            $.ajax({
+            type: 'post',
+            url: '/detail_add_cart',
+            data: {
+                'id': {{flower_in_db.id}},
+                'quantity': $('#quantity').val()
+            },
+            success: function (data) {
+                if (data == 'success') {
+                    window.location.href = '/cart'
+                }
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+        }
+    });
+
+    $(".product_detail").on('click', function () {
+        $.ajax({
+            type: 'post',
+            url: '/hit',
+            data: {
+                'id': this.title,
+            },
+            success: function (data) {
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+    })
+
+    $(".image_hit").on('click', function () {
+        $.ajax({
+            type: 'post',
+            url: '/hit',
+            data: {
+                'id': this.title,
+            },
+            success: function (data) {
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+    })
+    $('#in_wishlist').on('click', function (){
+        $.ajax({
+            type: 'post',
+            url: '/detail_add_wishlist',
+            data: {'id': this.title},
+            success: function () {
+                if($('#in_wishlist').find('i').attr('class') == 'fa fa-heart'){
+                    $('#in_wishlist').find('i').attr('class', 'fa fa-heart-o')
+                }else{
+                    $('#in_wishlist').find('i').attr('class', 'fa fa-heart')
+                }
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+    })
+    $('#buy_direct').on('click', function (){
+        $.ajax({
+            type: 'post',
+            url: '/buy_direct',
+            data: {'id': {{flower_in_db.id}},
+                   'number': $('#quantity').val()},
+            success: function (data) {
+                if(data == 'success'){
+                    window.location.href = '/checkout2'
+                }
+            },
+            error: function () {
+                alert('wrong')
+            }
+        });
+    })
+</script>
+
+<script>
+    var targetID
+    $('#open_contact').on('click', function (){
+        init()
+        $('#sendButton').on('click', sendMessage)
+        setInterval(longPolling, 20000)
+        document.onkeydown=function (){
+            if(event.keyCode == 13) {
+                document.getElementById("sendButton").click();
+            }
+        }
+
+
+    })
+
+    function init() {
+        getChatList()
+    }
+    function getChatList() {
+        $.ajax({
+            type: 'post',
+            url: '/getChatList',
+            success: function (response) {
+                data = response
+                showChatList(data)
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+    }
+
+    function showChatList(data) {
+        str = ''
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].status == 1) {
+                str += `
+                        <div class="chat_list active_chat">
+                                                <div class="chat_people" title="${data[i].uid}">
+                                                    <div class="chat_img"><img
+                                                            src="../../static/chat/assets/images/avatar5.jpg"
+                                                            alt="Alexander" class="img-fluid">
+                                                    </div>
+                                                    <div class="chat_ib">
+                                                        <h5 class="name">${data[i].name}<span class="chat_date">1 hour ago</span></h5>
+                                                        <p class="status">Message!</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    `
+            } else {
+                str +=`
+                    <div class="chat_list active_chat">
+                                                <div class="chat_people" title="${data[i].uid}">
+                                                    <div class="chat_img"><img
+                                                            src="../../static/chat/assets/images/avatar5.jpg"
+                                                            alt="Alexander" class="img-fluid">
+                                                    </div>
+                                                    <div class="chat_ib">
+                                                        <h5 class="name">${data[i].name}<span class="chat_date">1 hour ago</span></h5>
+                                                        <p class="status">Free</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                `
+            }
+        }
+        document.getElementsByClassName('inbox_chat')[0].innerHTML = str;
+        $('.chat_people').on('click', function () {
+            name = $(this).find('.name').html()
+            {#刷新chat list的状态框#}
+            $(this).find('.status').html('<i class="fa fa-circle left"></i> free')
+            $('.chat-with').html(name)
+            {#得到与chat person 的 chat history#}
+            targetID = this.title
+            getMessage(this.title)
+        })
+    }
+
+    {#用来得到后端的信息并显示#}
+
+    function getMessage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/getChatMessage',
+            data: {'person': id},
+            success: function (response) {
+                data = response
+                showMessage(data)
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+     }
+
+    {#显示信息#}
+
+    function showMessage(data) {
+        var str = ''
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].receiver == '{{ current_user.username }}') {
+                str += `
+                    <div class="incoming_msg">
+                                                <div class="incoming_msg_img"><img
+                                                        src="../../static/chat/assets/images/avatar5.jpg"
+                                                        alt="Alexander"
+                                                        class="img-fluid"></div>
+                                                <div class="received_msg">
+                                                    <div class="received_withd_msg">
+                                                        <p>${data[i].message}
+                                                        </p>
+                                                        <span class="time_date"> ${data[i].system_time}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                `
+            } else {
+                str += `
+                    <div class="outgoing_msg">
+                                                <div class="sent_msg">
+                                                    <p>${data[i].message}</p>
+                                                    <span class="time_date"> ${data[i].system_time}</span>
+                                                </div>
+                                            </div>
+                `
+            }
+        }
+        document.getElementsByClassName('msg_history')[0].innerHTML = str;
+        {#将消息拉到最底部#}
+        {#注意消息量不同scrollHeight也不同#}
+        var scrollHeight = $('.msg_history').prop("scrollHeight");
+        $('.msg_history').scrollTop(scrollHeight)
+     }
+
+    function sendMessage() {
+        id = targetID
+        text = $('.write_msg').val()
+        user = '{{ current_user.username }}'
+        $.ajax({
+            type: 'post',
+            url: '/storeMessage',
+            data: {'uid': id, 'text': text},
+            success: function (response) {
+                $('.msg_history').append(
+                    `
+                    <div class="outgoing_msg">
+                                                <div class="sent_msg">
+                                                    <p>${text}</p>
+                                                    <span class="time_date"> ${response}</span>
+                                                </div>
+                                            </div>
+                    `
+                );
+                {#消息刷新时将chat-history框拉到最低端#}
+                var scrollHeight = $('.msg_history').prop("scrollHeight");
+                $('.msg_history').scrollTop(scrollHeight)
+                $('.write_msg').val('')
+            },
+            error: function () {
+                alert('connection error')
+            }
+        })
+     }
+
+    function longPolling() {
+        $.ajax({
+            type: 'post',
+            url: '/refreshChatList',
+            success: function (response) {
+                if (response == '1') {
+                    getChatList()
+                    if (targetID != null) {
+                        getMessage(targetID)
+                    }
+                }
+            },
+            error: function () {
+                alert('connection error')
+            }
+
+        })
+     }
+
+</script>
+</body>
+
+</html>

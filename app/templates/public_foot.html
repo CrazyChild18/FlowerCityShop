@@ -1,0 +1,98 @@
+<!--Footer Section-->
+<div class="footer-area">
+    <div class="container">
+        <div class="footer-widget-area section-padding-6">
+            <div class="row justify-content-between">
+
+                <!--Footer Widget Start-->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-widget">
+                        <a class="footer-logo" href="#"><img src="../static/images/logo/logo-white.png" alt="" style="width: 70%;"></a>
+                        <div class="footer-widget-text">
+                            <p>{{ _('A perfect blend of creativity, energy, communication, happiness and love. Let us arrange a smile for you. ')}}</p>
+                        </div>
+                    </div>
+                    <!--Footer Widget End-->
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="footer-widget">
+                        <h4 class="footer-widget-title">{{ _('Information') }}</h4>
+
+                        <div class="footer-widget-menu">
+                            <ul>
+                                <li><a href="#">{{ _('Search Terms') }}</a></li>
+                                <li><a href="#">{{ _('Helps & Faqs') }}</a></li>
+                                <li><a href="{{ url_for('main.about') }}">{{ _('Store Location') }}</a></li>
+                                <li><a href="#">{{ _('Orders & Returns') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="footer-widget">
+                        <h4 class="footer-widget-title">{{ _('My Account') }}</h4>
+
+                        <div class="footer-widget-menu">
+                            <ul>
+                                {% if current_user.is_authenticated %}
+                                    <li><a href="{{ url_for('auth.myaccount') }}">{{ _('Delivery') }}</a></li>
+                                    <li><a href="#">{{ _('Legal Notice')}}</a></li>
+                                    <li><a href="{{ url_for('auth.myaccount') }}">{{ _('Address') }}</a></li>
+                                    <li><a href="{{ url_for('main.about') }}">{{ _('About us')}}</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('auth.login') }}">{{ _('Delivery') }}</a></li>
+                                    <li><a href="#">Legal Notice</a></li>
+                                    <li><a href="{{ url_for('auth.login') }}">{{ _('Address') }}</a></li>
+                                    <li><a href="{{ url_for('main.about') }}">{{ _('About us')}}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="footer-widget">
+                        <h4 class="footer-widget-title">{{ _('Help') }}</h4>
+
+                        <div class="footer-widget-menu">
+                            <ul>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">{{ _('Pricing Plans') }}</a></li>
+                                {% if current_user.is_authenticated %}
+                                    <li><a href="{{ url_for('auth.myaccount') }}">{{ _('Your Order') }}</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('auth.login') }}">{{ _('Your Order') }}</a></li>
+                                {% endif %}
+                                <li><a href="{{ url_for('main.home') }}">{{ _('Returns') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Copyright Section-->
+<div class="copyright-section">
+    <div class="container">
+        <div class="copyright-wrapper text-center d-lg-flex align-items-center justify-content-between">
+
+            <!--Right Start-->
+            <div class="copyright-content">
+                <p>Copyright &copy; 2021.FlowerCity All rights reserved.</p>
+            </div>
+            <!--Right End-->
+
+            <!--Right Start-->
+            <div class="copyright-payment">
+                <img src="../static/images/payment.png" alt="">
+            </div>
+            <!--Right End-->
+
+        </div>
+    </div>
+</div>

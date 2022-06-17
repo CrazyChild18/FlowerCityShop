@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Product Control') }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="fix-header card-no-border fix-sidebar">
+{% import "_macros.html" as macros %}
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+        {% include 'admin_new/admin_head_bar.html' %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" style="margin-top: 30px">
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Product List') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ _('Product List') }}</li>
+                        </ol>
+                    </div>
+                    <div style="float: right">
+                        <button type="button" class="btn waves-effect waves-light btn btn-info pull-right"><a href="{{ url_for('admin.add_new') }}">{{ _('Add Product')}}</a></button>
+                </div>
+                </div>
+                <!-- Start Page Content -->
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th><b>ID</b></th>
+                                                <th><b>{{ _('Product Name') }}</b></th>
+                                                <th><b>{{ _('Amount') }}</b></th>
+                                                <th><b>{{ _('Price') }}</b></th>
+                                                <th><b>{{ _('State') }}</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in flowers %}
+                                                <tr>
+                                                    {% if i.on_sale %}
+                                                        <tr>
+                                                            <td style="text-decoration: none "><b>{{ i.id }}</b></td>
+                                                            <td><a href="#" style="color: black"><p style="display: none">{{ i.hit_number }}</p><span>{{ i.name }}</span></a></td>
+                                                            <td><a class="edit_amount" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" style="color: black">{{ i.amount }}</a></td>
+                                                            <td><a class="edit_price" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" style="color: black">{{ i.price }}</a></td>
+                                                            <td style="text-decoration: none "><button type="button" class="off_shelves" style="border: lightskyblue 2px double; background: lightskyblue; color: white; border-radius: 13px"><b>{{ _('Off the Shelves')}}</b></button></td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr style="background-color: lightgrey">
+                                                            <td style="text-decoration: line-through "><b>{{ i.id }}</b></td>
+                                                            <td><a href="#" style="color: black"><p style="display: none">{{ i.hit_number }}</p><span>{{ i.name }}</span></a></td>
+                                                            <td><a class="edit_amount" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" style="color: black">{{ i.amount }}</a></td>
+                                                            <td><a class="edit_price" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" style="color: black">{{ i.price }}</a></td>
+                                                            <td><button type="button" class="on_shelves" style="border: orangered 2px double; background: orangered; color: white; border-radius: 13px"><b>{{ _('On the Shelves')}}</b></button></td>
+                                                        </tr>
+                                                    {% endif %}
+
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Pagination Start-->
+                <div class="page-pagination" style="text-align: center;">
+                    {% if items %}
+                        <div class="pagination" style="text-align: center; display: inline-block; margin-top: -30px">
+                            {{ macros.pagination_widget(items, '.admin_product_new') }}
+                            <div style="clear: both"></div>
+                        </div>
+                        <div style="clear: both"></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+{#                            <h4 class="modal-title" id="myModalLabel">标题</h4>#}
+                        </div>
+                        <div class="modal-body">
+                            <!-- 图片和花名 -->
+                            <div style="width: 50%; float: left; text-align: center;">
+                                <h3 style="color: orangered" id="name">{{ _('Name') }}</h3>
+                                <img id="image">
+                            </div>
+                            <!-- 商品简介 -->
+                            <div style="width: 50%; float: right;">
+                                <div style="border: rgb(127,127,127) 3px solid; border-radius: 15px; margin-right: 15%; margin-top: 25%">
+                                    <div style="margin-left: 5%; width: 40%; display: inline-block; margin-top: 30px"><b>{{ _('Price:') }}</b></div>
+                                    <div id="price" style="display: inline-block; width: 40%; margin-top: 30px; color: blue"></div>
+                                    <div style="margin-left: 5%; width: 40%; display: inline-block; margin-top: 10px"><b>{{ _('Amount:') }}</b></div>
+                                    <div id="amount" style="display: inline-block; width: 40%; margin-top: 10px; color: blue"></div>
+                                    <div style="margin-left: 5%; width: 40%; display: inline-block; margin-top: 10px; margin-bottom: 30px"><b>{{ _('Hit Amount:')}}</b></div>
+                                    <div id="hit" style="display: inline-block; width: 40%; margin-top: 10px; margin-bottom: 30px; color: blue"></div>
+                                </div>
+                            </div>
+                            <!-- 更改信息框 -->
+                            <div style="float: left; width: 100%">
+                                <hr>
+                                <div id="tips" style="float: left; width: 40%; text-align: center">{{ _('Enter Amount Here:') }}</div>
+                                <input id="number" style="float: right; width: 30%; border: #9B7536 3px double; margin-right: 15%;">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <span id="value" style="display: none"></span>
+                            <span id="type" style="display: none"></span>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('Cancel') }}</button>
+                            <button type="button" class="btn btn-primary" id="change">{{ _('Change') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <footer class="footer">Copyright &copy; 2021.FlowerCity All rights reserved.</footer>
+        </div>
+    </div>
+
+
+</div>
+
+    <!-- All Jquery -->
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+    <!-- jQuery peity -->
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.init.js"></script>
+
+    <script>
+        $('.on_shelves').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/admin/on_shelves',
+                data: {'id': $(this).closest('tr').find('td').eq(0).text()},
+                success: function (data) {
+                    if (data == 'success'){
+                        window.location.href = '/admin/admin_product_new'
+                    }
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+        })
+
+        $('.off_shelves').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/admin/off_shelves',
+                data: {'id': $(this).closest('tr').find('td').eq(0).text()},
+                success: function (data) {
+                    if (data == 'success'){
+                        window.location.href = '/admin/admin_product_new'
+                    }
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+        })
+
+        $('.edit_amount').on('click', function (){
+            $('#number').val('')
+            $('#name').html($(this).closest('tr').find('td').eq(1).find('span').text())
+            var path = '../static/uploaded_AVATAR/' + $(this).closest('tr').find('td').eq(1).find('span').text() + 'AVATAR.jpg'
+            $('#image').attr('src', path)
+            $('#price').html($(this).closest('tr').find('td').eq(3).text())
+            $('#amount').html($(this).text())
+            $('#hit').html($(this).closest('tr').find('td').eq(1).find('p').text())
+            $('#value').html($(this).closest('tr').find('td').eq(0).text())
+
+            $('#type').html('amount')
+            $('#tips').html('Enter Amount Here: ')
+        })
+
+        $('.edit_price').on('click', function (){
+            $('#number').val('')
+            $('#name').html($(this).closest('tr').find('td').eq(1).find('span').text())
+            var path = '../static/uploaded_AVATAR/' + $(this).closest('tr').find('td').eq(1).find('span').text() + 'AVATAR.jpg'
+            $('#image').attr('src', path)
+            $('#price').html($(this).text())
+            $('#amount').html($(this).closest('tr').find('td').eq(2).text())
+            $('#hit').html($(this).closest('tr').find('td').eq(1).find('p').text())
+            $('#value').html($(this).closest('tr').find('td').eq(0).text())
+
+            $('#type').html('price')
+            $('#tips').html('Enter Price Here: ')
+        })
+
+        $('#change').on('click', function (){
+             if($('#type').text() == 'price'){
+                 $.ajax({
+                    type: 'post',
+                    url: '/admin/change_price',
+                    data: {'id': $('#value').text(),
+                           'price': $('#number').val()
+                    },
+                    success: function (data) {
+                        if (data == 'success'){
+                            window.location.href = '/admin/admin_product_new'
+                        }
+                    },
+                    error: function (){
+                        alert('fail')
+                    }
+                 })
+             }else if($('#type').text() == 'amount'){
+                 $.ajax({
+                    type: 'post',
+                    url: '/admin/change_amount',
+                    data: {'id': $('#value').text(),
+                           'amount': $('#number').val()
+                    },
+                    success: function (data) {
+                        if (data == 'success'){
+                            window.location.href = '/admin/admin_product_new'
+                        }
+                    },
+                    error: function (){
+                        alert('fail')
+                    }
+                 })
+             }
+        })
+    </script>
+</body>
+
+</html>

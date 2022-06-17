@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Staff Home') }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/admin_new/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="../../static/admin_new/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+    <!--c3 CSS -->
+    <link href="../../static/admin_new/assets/node_modules/c3-master/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="../../static/admin_new/css/pages/dashboard1.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+        {% include 'admin_new/admin_head_bar.html' %}
+
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Dashboard') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ _('Dashboard') }}</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Sales Chart and browser state-->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div>
+                                        <h5 class="card-title m-b-0">{{ _('Sales Chart') }}</h5>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <select class="custom-select b-0">
+                                            <option selected="" value="1" id="this_week">{{ _('This Week') }}</option>
+                                            <option value="2" id="last_week">{{ _('Last Week') }}</option>
+                                            <option value="3" id="this_month">{{ _('This Month') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="" id="sales-chart" style="height: 355px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex m-b-30 no-block">
+                                    <h5 class="card-title m-b-0 align-self-center">{{ _('Types of flowers sold') }}</h5>
+                                    <div class="ml-auto">
+                                        <select class="custom-select b-0">
+                                            <option selected="">{{ _('Up To Now') }}</option>
+                                            <option value="1">{{ _('This Month') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="visitor" style="height:260px; width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects of the Month -->
+                <div class="row">
+                    <!-- 用户资料 -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div>
+                                        <h5 class="card-title">{{ _('User consumption data') }}</h5>
+                                    </div>
+                                </div>
+                                <div class="table-responsive m-t-20 no-wrap">
+                                    <table class="table vm no-th-brd pro-of-month">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">{{ _('Avatar') }}</th>
+                                                <th>{{ _('Email') }}</th>
+                                                <th>{{ _('Sum Consumption ($)')}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in users %}
+                                                <tr>
+                                                    <td>
+                                                        {% if user.avatar != none %}
+                                                            <span class="round"><img src="../../static/images/avatar/{{ user.avatar }}" alt="user" width="50" height="50"></span>
+                                                        {% else %}
+                                                            <span class="round"><img src="../../static/images/avatar/head.png" alt="user" width="50"></span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <h6>{{ user.username }}</h6>
+                                                        <small class="text-muted">{{ _('Last Login Time:')}} {{ user.last_seen.strftime('%Y-%m-%d  %H:%M:%S') }}</small>
+                                                    </td>
+                                                    <td>{{ user.email}}</td>
+                                                    <td>{{  user.total_consumption() }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 卡片 -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="up-img" style="background-image:url(../../static/admin_new/assets/images/big/img1.jpg)"></div>
+                            <div class="card-body">
+                                <h5 class=" card-title">{{ _('Today Schedules') }}</h5>
+                                <span class="label label-info label-rounded">{{ title }}</span>
+                                {% for i in items %}
+                                    <p class="m-b-0 m-t-20">-> {{ i.content }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification -->
+                <div class="row">
+                    <!-- Start Notification -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card card-body mailbox">
+                            <h5 class="card-title">{{ _('Recent visitor') }}</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                {% for user in recent_visit_users %}
+                                    <!-- Message -->
+                                    <a href="#">
+                                        {% if user.avatar != none %}
+                                            <span class="round"><img src="../../static/images/avatar/{{ user.avatar }}" alt="user" width="50" height="50"></span>
+                                        {% else %}
+                                            <span class="round"><img src="../../static/images/avatar/head.png" alt="user" width="50"></span>
+                                        {% endif %}
+                                        <div class="mail-contnet">
+                                            <h5>{{ user.username}}</h5>
+                                            <span class="mail-desc">{{ _('Just see the my admin!') }}</span>
+                                            <span class="time">{{ user.last_seen.strftime('%Y-%m-%d %H:%M:%S')}}</span>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Order Notification -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ _('Untreated Orders') }}</h5>
+                                <ul class="feeds">
+                                    {% if order_send != [] %}
+                                        {% for order in order_send %}
+                                            <li>
+                                                <div class="bg-light-info"><i class="fa fa-bell-o"></i></div>
+                                                {{ _('Order ID:')}} <b>{{ order.id }}</b><span class="text-muted">{{ order.time.strftime('%y-%m-%d %H:%m') }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    {% elif order_send == [] %}
+                                        <li>
+                                            <img src="../../static/admin_new/assets/images/finish.png" style="width: 35px; margin-right: 10px">{{ _('The store has no unprocessed orders')}}
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <footer class="footer">Copyright &copy; 2021. FlowerCity All rights reserved.</footer>
+        </div>
+    </div>
+
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+    <!--morris JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/morrisjs/morris.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/d3/d3.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/c3-master/c3.min.js"></script>
+    <!-- Chart JS -->
+{#    <script src="../../static/admin_new/js/dashboard1.js"></script>#}
+    <script>
+
+        $.ajax({
+                type: 'post',
+                url: '/admin/this_week',
+                success: function (data) {
+                    date_list = data['date_list']
+                    sale_list = data['sale_list']
+                    this_week(date_list, sale_list)
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+
+        $.ajax({
+                type: 'post',
+                url: '/admin/up_to_now_pie',
+                success: function (data) {
+                    flower_list = data['flower_list']
+                    number_list = data['number_list']
+                    flower_propotion(flower_list, number_list)
+                },
+                error: function (){
+                    alert('fail')
+                }
+             })
+
+        function flower_propotion(flower_list, number_list){
+            var columns = []
+            for(var i = 0; i<flower_list.length; i++){
+                if(i<=4){
+                    columns.push([flower_list[i], parseInt(number_list[i])])
+                }else{
+                    columns.push(['others', parseInt(number_list[i])])
+                }
+
+            }
+            c3.generate({
+                bindto: '#visitor',
+                data: {
+                    columns: columns,
+                    type: 'donut',
+                    onclick: function (d, i) {
+                        console.log("onclick", d, i);
+                    },
+                    onmouseover: function (d, i) {
+                        console.log("onmouseover", d, i);
+                    },
+                    onmouseout: function (d, i) {
+                        console.log("onmouseout", d, i);
+                    }
+                },
+                donut: {
+                    label: {
+                        show: false
+                    },
+                    title: "Sales",
+                    width: 20,
+
+                },
+
+                legend: {
+                    hide: true
+                    //or hide: 'data1'
+                    //or hide: ['data1', 'data2']
+                },
+                color: {
+                    pattern: ['#eceff1', '#24d2b5', '#6772e5', '#20aee3']
+                }
+            });
+        }
+
+        function this_week(date, sale){
+            Morris.Area({
+            element: 'sales-chart',
+            data: [{
+                    date: date[0],
+                    Sales: sale[0],
+                }, {
+                    date: date[1],
+                    Sales: sale[1],
+                }, {
+                    date: date[2],
+                    Sales: sale[2],
+                }, {
+                    date: date[3],
+                    Sales: sale[3],
+                }, {
+                    date: date[4],
+                    Sales: sale[4],
+                }, {
+                    date: date[5],
+                    Sales: sale[5],
+                },
+                {
+                    date: date[6],
+                    Sales: sale[6],
+                }
+            ],
+            xkey: 'date',
+            ykeys: ['Sales'],
+            labels: ['Site A'],
+            pointSize: 0,
+            fillOpacity: 0,
+            pointStrokeColors: ['#20aee3'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 5,
+            hideHover: 'auto',
+            lineColors: ['#20aee3'],
+            resize: true,
+            });
+        }
+
+        function last_week(){
+            Morris.Area({
+            element: 'sales-chart',
+            data: [{
+                    period: '2015',
+                    Sales: 50,
+                    Marketing: 20
+                }, {
+                    period: '2016',
+                    Sales: 130,
+                    Marketing: 80
+                }, {
+                    period: '2017',
+                    Sales: 80,
+                    Marketing: 70
+                }, {
+                    period: '2018',
+                    Sales: 70,
+                    Marketing: 140
+                }, {
+                    period: '2019',
+                    Sales: 180,
+                    Marketing: 140
+                }, {
+                    period: '2020',
+                    Sales: 105,
+                    Marketing: 80
+                },
+                {
+                    period: '2021',
+                    Sales: 250,
+                    Marketing: 200
+                }
+            ],
+            xkey: 'period',
+            ykeys: ['Sales', 'Marketing'],
+            labels: ['Site A', 'Site C'],
+            pointSize: 0,
+            fillOpacity: 0,
+            pointStrokeColors: ['#20aee3', '#6772e5'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 3,
+            hideHover: 'auto',
+            lineColors: ['#20aee3', '#6772e5'],
+            resize: true
+            });
+        }
+
+        function this_month(){
+            Morris.Area({
+            element: 'sales-chart',
+            data: [{
+                    period: '2015',
+                    Sales: 50,
+                    Marketing: 20
+                }, {
+                    period: '2016',
+                    Sales: 130,
+                    Marketing: 80
+                }, {
+                    period: '2017',
+                    Sales: 80,
+                    Marketing: 70
+                }, {
+                    period: '2018',
+                    Sales: 70,
+                    Marketing: 140
+                }, {
+                    period: '2019',
+                    Sales: 180,
+                    Marketing: 140
+                }, {
+                    period: '2020',
+                    Sales: 105,
+                    Marketing: 80
+                },
+                {
+                    period: '2021',
+                    Sales: 250,
+                    Marketing: 200
+                }
+            ],
+            xkey: 'period',
+            ykeys: ['Sales', 'Marketing'],
+            labels: ['Site A', 'Site C'],
+            pointSize: 0,
+            fillOpacity: 0,
+            pointStrokeColors: ['#20aee3', '#6772e5'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 3,
+            hideHover: 'auto',
+            lineColors: ['#20aee3'],
+            resize: true
+            });
+        }
+
+    </script>
+<style>
+.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+</style>
+<div class="copyrights">
+	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
+</div>
+</body>
+
+</html>

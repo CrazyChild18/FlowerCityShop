@@ -1,0 +1,69 @@
+{% if current_user.is_authenticated %}
+    <div class="header-account-list dropdown mini-cart">
+        <!--购物车角标-->
+        <a href="#" role="button" data-toggle="dropdown">
+            <i class="icon-shopping-bag2"></i>
+            <span class="item-count ">{{flower_in_cart | length}}</span>
+        </a>
+        <!--购物车内容展示-->
+        <ul class="dropdown-menu ">
+            <!--购物车商品-->
+            {% for flower in flower_in_cart %}
+                {% if flower.flower_cart.on_sale %}
+                    <li class="product-cart">
+                        <div class="single-cart-box">
+                            <div class="cart-img">
+                                <a href="{{ url_for('main.product_detail', id=flower.item_id)}}"><img src="../static/uploaded_AVATAR/{{ flower.flower_cart.pic}}" alt=""></a>
+                                <span class="pro-quantity">x{{ flower.number }}</span>
+                            </div>
+                            <div class="cart-content">
+                                <h6 class="title"><a href="#">{{ flower.flower_cart.name }}</a></h6>
+                                <div class="cart-price">
+                                    <span class="sale-price">${{flower.flower_cart.price}}</span>
+{#                                    <span class="regular-price">$80.00</span>#}
+                                </div>
+                            </div>
+                            <a href="{{ url_for('main.delete_cart', id=flower.item_id)}}" class="del-icon"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="product-cart" style="background-color: darkgray">
+                        <div class="single-cart-box">
+                            <div class="cart-img">
+                                <a onclick="inform()" ><img src="../static/uploaded_AVATAR/{{ flower.flower_cart.pic}}" alt=""></a>
+                                <span class="pro-quantity">{{ _('SOLD OUT') }}</span>
+                            </div>
+                            <div class="cart-content">
+                                <h6 class="title"><a onclick="inform()" style="text-decoration: line-through">{{ flower.flower_cart.name }}</a></h6>
+                                <div class="cart-price">
+                                    <span class="sale-price" style="text-decoration: line-through">${{flower.flower_cart.price}}</span>
+{#                                    <span class="regular-price">$80.00</span>#}
+                                </div>
+                            </div>
+                            <a href="{{ url_for('main.delete_cart', id=flower.item_id)}}" class="del-icon"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+                <!--购物车总价格-->
+                <li class="product-total">
+                    <ul class="cart-total">
+                        <li> Total : <span>{{ number }}</span></li>
+                    </ul>
+                </li>
+                <!--购物车结算按钮-->
+                <li class="product-btn">
+                    {% if flower_in_cart | length == 0 %}
+                        <a href="#" class="btn btn-dark btn-block">{{ _('Checkout') }}</a>
+                    {% else %}
+                        <a href="{{ url_for('main.checkout') }}" class="btn btn-dark btn-block">{{ _('Checkout') }}</a>
+                    {% endif %}
+                </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        function inform(){
+            alert("{{ _('The current item has been removed from the shelf, whether to remove it from the shopping cart?') }}");
+        }
+    </script>
+{% endif %}

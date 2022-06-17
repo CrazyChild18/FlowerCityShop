@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>{{ _('Blog Square')}}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/layerslider.css" rel="stylesheet">
+	<link href="../../static/blog/01-homepage/css/styles.css" rel="stylesheet">
+	<link href="../../static/blog/01-homepage/css/responsive.css" rel="stylesheet">
+</head>
+<body>
+
+	{% include 'blog/blog_head.html' %}
+
+    <!-- main-slider -->
+	<div class="main-slider">
+        <div id="slider">
+			<div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+				<img src="../../static/images/blog-single/blog-single.jpg" class="ls-bg" alt="" />
+
+					<div class="slider-content ls-l" style="top:60%; left:30%;" data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+						<a class="btn" href="#">{{ _('Explore') }}</a>
+						<h3 class="title"><b>{{ _('Flower, Love, Life, Share') }}</b></h3>
+						<h6>{{ _('Waiting for you') }}</h6>
+					</div>
+
+			</div>
+			<div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+				<img src="../../static/images/slider/slider-2.jpg" class="ls-bg" alt="" />
+
+					<div class="slider-content ls-l" style="top:60%; left:30%;" data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+						<a class="btn" href="#">{{ _('Explore') }}</a>
+						<h3 class="title"><b>{{ _('Flower, Love, Life, Share') }}</b></h3>
+						<h6>{{ _('Waiting for you') }}</h6>
+					</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- container -->
+	<section class="section blog-area">
+		<div class="container">
+			<div class="row">
+                <!-- col-lg-8 -->
+				<div class="col-lg-8 col-md-12">
+                    <!-- blog-posts -->
+					<div class="blog-posts">
+                        <!-- single-post -->
+						<div class="single-post" style="border: #ff8600 3px double; padding: 10px">
+							<div class="image-wrapper"><img src="../../static/blog_PIC/{{ post1.title + '0.jpg' }}" alt="Blog Image"></div>
+
+							<div class="icons">
+								<ul class="right-area social-icons">
+									<li><a href="#"><i class="ion-android-share-alt"></i>{{ _('Share') }}</a></li>
+									{% if current_user.id != post1.post_user %}
+                                        {% if not current_user.is_liking(post1) %}
+                                            <li><a id="like" href="{{ url_for('.like', post_id=post1.id) }}">
+                                                <i class="ion-android-favorite-outline"></i>{{ post1.liker.count() }}
+                                            </a></li>
+                                        {% else %}
+                                            <li><a id="dislike" href="{{ url_for('.dislike', post_id=post1.id) }}">
+                                                <i class="ion-android-favorite"></i>{{ post1.liker.count() }}
+                                            </a></li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li><a id="like">
+                                            <i class="ion-android-favorite-outline"></i>{{ post1.liker.count() }}
+                                        </a></li>
+                                    {% endif %}
+									<li><a href="{{ url_for('main.blog_detail', id=post1.id) }}"><i class="ion-android-textsms"></i>{{ post1.comment_poster.count() }}</a></li>
+								</ul>
+							</div>
+							<p class="date"><em>{{ post1.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></p>
+							<h3 class="title"><a href="{{ url_for('main.blog_detail', id=post1.id) }}"><b class="light-color">{{ post1.title }}</b></a></h3>
+							<p>{{ post1.content }}</p>
+							<a class="btn read-more-btn" href="{{ url_for('main.blog_detail', id=post1.id) }}"><b>Detailed Reading</b></a>
+						</div>
+                        <!-- row -->
+						<div class="row">
+                            {% for post in posts %}
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="single-post post-style-2">
+                                        <div class="image-wrapper width-50 left-area">
+                                            <img src="../../static/blog_PIC/{{ post.title + '0.jpg' }}" alt="Blog Image"></div>
+
+                                        <div class="post-details width-50 right-area">
+                                            <div class="icons">
+                                                <ul class="right-area social-icons">
+                                                    <li class="id" style="display: none">{{ post.id }}</li>
+                                                    <li><a href="#"><i class="ion-android-share-alt"></i>Share</a></li>
+                                                    {% if current_user.id != post.post_user %}
+                                                        {% if not current_user.is_liking(post) %}
+                                                            <li><a id="like" href="{{ url_for('.like', post_id=post.id) }}">
+                                                                <i class="ion-android-favorite-outline"></i>{{ post.liker.count() }}
+                                                            </a></li>
+                                                        {% else %}
+                                                            <li><a id="dislike" href="{{ url_for('.dislike', post_id=post.id) }}">
+                                                                <i class="ion-android-favorite"></i>{{ post.liker.count() }}
+                                                            </a></li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li><a id="like">
+                                                            <i class="ion-android-favorite-outline"></i>{{ post.liker.count() }}
+                                                        </a></li>
+                                                    {% endif %}
+                                                    <li><a href="{{ url_for('main.blog_detail', id=post.id) }}"><i class="ion-android-textsms"></i>{{ post.comment_poster.count() }}</a></li>
+                                                </ul>
+                                            </div>
+                                            <h6 class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></h6>
+                                            <h3 class="title"><a  href="{{ url_for('main.blog_detail', id=post.id) }}"><b class="light-color">{{ post.title }}</b></a></h3>
+                                            <p>{{ post.describe }}</p>
+                                            <a class="btn read-more-btn" href="{{ url_for('main.blog_detail', id=post.id) }}"><b>{{ _('READ MORE')}}</b></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+						</div>
+                        <!-- 加载更多 -->
+						<a class="btn load-more-btn" target="_blank" href="{{ url_for('main.blog_list', text='%null%') }}">{{ _('LOAD OLDER POSTS')}}</a>
+					</div>
+				</div>
+                <!-- col-lg-4 -->
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+                        <!-- sidebar-section src-area -->
+						<div class="sidebar-section src-area">
+
+							<form action="post">
+								<input class="src-input" type="text" placeholder="{{ _('Search') }}", id="search_input">
+								<button class="src-btn" type="button", id="search"><i class="ion-ios-search-strong"></i></button>
+							</form>
+
+						</div>
+                        <!-- sidebar-section category-area -->
+						<div class="sidebar-section category-area">
+							<h4 class="title"><b class="light-color">{{ _('Categories') }}</b></h4>
+							<a class="category" href="{{ url_for('main.blog_list', text='%Flower Art Appreciation%') }}">
+								<img src="../../static/blog/images/category-1-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Flower Art Appreciation') }}</h6>
+							</a>
+
+							<a class="category" href="{{ url_for('main.blog_list', text='%Breeding Techniques%') }}">
+								<img src="../../static/blog/images/category-2-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Breeding Techniques') }}</h6>
+							</a>
+
+							<a class="category" href="{{ url_for('main.blog_list', text='%Question And Answer%') }}">
+								<img src="../../static/blog/images/category-3-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Question And Answer') }}</h6>
+							</a>
+							<a class="category" href="{{ url_for('main.blog_list', text='%Sharing Flowers%') }}">
+								<img src="../../static/blog/images/category-4-400x150.jpg" alt="Category Image">
+								<h6 class="name">{{ _('Sharing Flowers') }}</h6>
+							</a>
+						</div>
+                        <!-- sidebar-section latest-post-area -->
+						<div class="sidebar-section latest-post-area">
+							<h4 class="title"><b class="light-color">{{ _('Latest Posts') }}</b></h4>
+                            {% for post in latest_posts %}
+                                <div class="latest-post">
+                                    <div class="l-post-image"><img src="../../static/blog_PIC/{{ post.title }}0.jpg" alt="Category Image"></div>
+                                    <div class="post-info">
+    {#									<a class="btn category-btn" href="#">TRAVEL</a>#}
+                                        <h5><a href="{{ url_for('main.blog_detail', id=post.id) }}"><b class="light-color">{{ post.title }}</b></a></h5>
+                                        <h6 class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></h6>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+    <!--Add Blog-->
+    <a class="btn load-more-btn" target="_blank" href="{{ url_for('main.blog_add') }}" style="position: fixed; bottom: 100px; z-index: 99; right: 20px">
+        <img src="../../static/images/add_comment.png" style="width: 20px; margin-right: 10px; border: #0a001f 2px solid; border-radius: 10px">
+        <b>Write Blog</b>
+    </a>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+	<script src="../../static/blog/common-js/jquery-3.1.1.min.js"></script>
+	<script src="../../static/blog/common-js/tether.min.js"></script>
+	<script src="../../static/blog/common-js/bootstrap.js"></script>
+	<script src="../../static/blog/common-js/layerslider.js"></script>
+	<script src="../../static/blog/common-js/scripts.js"></script>
+
+    <script>
+        $('#search').on('click', function (){
+            var text = $('#search_input').val();
+            window.location.href = '/blog-list/'+ text;
+        })
+
+    </script>
+</body>
+</html>

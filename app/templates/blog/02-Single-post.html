@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>TITLE</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+
+	<!-- Font -->
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+
+
+	<link href="../../static/blog/02-Single-post/css/styles.css" rel="stylesheet">
+
+	<link href="../../static/blog/02-Single-post/css/responsive.css" rel="stylesheet">
+
+</head>
+<body>
+
+    {% include 'blog/blog_head.html' %}
+
+	<section class="blog-area">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-8 col-md-12">
+					<div class="blog-posts">
+
+						<div class="single-post">
+							<div class="image-wrapper"><img src="../../static/blog_PIC/{{ post.title }}0.jpg" alt="Blog Image"></div>
+
+							<div class="icons">
+								<ul class="right-area social-icons">
+									<li><a href="#"><i class="ion-android-share-alt"></i>{{ _('Share') }}</a></li>
+                                    {% if current_user.id != post.post_user %}
+                                        {% if not current_user.is_liking(post) %}
+                                            <li><a id="like" href="{{ url_for('.like_in_post', post_id=post.id) }}">
+                                                <i class="ion-android-favorite-outline"></i>{{ post.liker.count() }}
+                                            </a></li>
+                                        {% else %}
+                                            <li><a id="dislike" href="{{ url_for('.dislike_in_post', post_id=post.id) }}">
+                                                <i class="ion-android-favorite"></i>{{ post.liker.count() }}
+                                            </a></li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li><a id="like">
+                                            <i class="ion-android-favorite-outline"></i>{{ post.liker.count() }}
+                                        </a></li>
+                                    {% endif %}
+									<li><a href="{{ url_for('main.blog_detail', id=post.id) }}"><i class="ion-android-textsms"></i>{{ post.comment_poster.count() }}</a></li>
+								</ul>
+							</div>
+							<p class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></p>
+							<h3 class="title"><a href="#"><b class="light-color">{{ post.title }}</b></a></h3>
+
+                            <p>{{ post.content }}</p>
+
+						</div><!-- single-post -->
+
+
+						<div class="post-author">
+							<div class="author-image"><img src="../../static/blog/images/author-1-200x200.jpg" alt="Autohr Image"></div>
+
+							<div class="author-info">
+								<h4 class="name"><b class="light-color">{{ author.username }}</b></h4>
+
+							</div><!-- author-info -->
+						</div><!-- post-author -->
+
+						<div class="comments-area">
+							<h4 class="title"><b class="light-color">{{ post.comment_poster.count() }} Comments</b></h4>
+                                {% for comment in comments %}
+                                    <div class="comment">
+                                        <div class="author-image"><img src="../../static/blog/images/author-2-150x150.jpg" alt="Autohr Image"></div>
+                                        <div class="comment-info">
+                                            <h5><b class="light-color">{{ comment.dynamic.username }}</b></h5>
+                                            <h6 class="date"><em>{{ comment.time.strftime('%Y-%m-%d  %H:%M:%S')}}</em></h6>
+                                            <p>{{ comment.comment }}</p>
+                                        </div>
+                                    </div><!-- comment -->
+                                {% endfor %}
+						</div><!-- comments-area -->
+                        {% if current_user.id != author.id %}
+                            <div class="leave-comment-area">
+                                <h4 class="title"><b class="light-color">{{ _('Leave a comment') }}</b></h4>
+                                <div class="leave-comment">
+
+                                    <form method="post">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <textarea rows="3" placeholder="Leave a comment" id="comment_area" style="border: black 1px solid"></textarea>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <button class="btn btn-2" id="comment_button" type="button"><b>{{ _('COMMENT') }}</b></button>
+                                            </div>
+
+                                        </div><!-- row -->
+                                    </form>
+
+                                </div><!-- leave-comment -->
+
+                            </div><!-- comments-area -->
+                        {% endif %}
+					</div><!-- blog-posts -->
+				</div><!-- col-lg-4 -->
+
+
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+
+						<div class="sidebar-section about-author center-text">
+							<div class="author-image"><img src="../../static/blog/images/author-1-200x200.jpg" alt="Autohr Image"></div>
+
+							<h4 class="author-name"><b class="light-color">{{ author.username}}</b></h4>
+							<a class="read-more-link" href="#"><b>{{ _('READ MORE') }}</b></a>
+
+						</div><!-- sidebar-section about-author -->
+
+						<div class="sidebar-section latest-post-area">
+							<h4 class="title"><b class="light-color">{{ _('Latest Posts') }}</b></h4>
+
+							{% for post in latest_posts %}
+                                <div class="latest-post">
+                                    <div class="l-post-image"><img src="../../static/blog_PIC/{{ post.title }}0.jpg" alt="Category Image"></div>
+                                    <div class="post-info">
+    {#									<a class="btn category-btn" href="#">TRAVEL</a>#}
+                                        <h5><a href="{{ url_for('main.blog_detail', id=post.id) }}"><b class="light-color">{{ post.title }}</b></a></h5>
+                                        <h6 class="date"><em>{{ post.time.strftime('%Y-%m-%d  %H:%M:%S') }}</em></h6>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+						</div><!-- sidebar-section latest-post-area -->
+					</div><!-- about-author -->
+				</div><!-- col-lg-4 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- section -->
+
+
+    <!--Add Blog-->
+    <a class="btn load-more-btn" target="_blank" href="{{ url_for('main.blog_add') }}" style="position: fixed; bottom: 100px; z-index: 99; right: 20px">
+        <img src="../../static/images/add_comment.png" style="width: 20px; margin-right: 10px; border: #0a001f 2px solid; border-radius: 10px">
+        <b>{{ _('Write Blog') }}</b>
+    </a>
+
+
+	<footer>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+
+	<script src="../../static/blog/common-js/jquery-3.1.1.min.js"></script>
+
+	<script src="../../static/blog/common-js/tether.min.js"></script>
+
+	<script src="../../static/blog/common-js/bootstrap.js"></script>
+
+	<script src="../../static/blog/common-js/scripts.js"></script>
+
+    <script>
+        $('#comment_button').on('click', function (){
+            var comment = $('#comment_area').val()
+            $.ajax({
+                    type:'post',
+                    url:'/comment/'+{{ id }},
+                    data: {'comment': comment},
+                    success:function(data){
+                        if(data == 'success'){
+                            window.location.href = '/blog-detail/'+ {{ id }}
+                        }
+                    },
+                    error:function (){
+                        {#alert('wrong')#}
+                    }
+                });
+        })
+    </script>
+
+</body>
+</html>

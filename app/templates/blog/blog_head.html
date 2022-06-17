@@ -1,0 +1,39 @@
+	<header>
+        <!-- top-menu -->
+		<div class="top-menu" style="font-family: Rubik, sans-serif; ">
+
+            <!-- left-area -->
+			<ul class="left-area welcome-area">
+				<li class="hello-blog">{{ _('Hello nice people, welcome to FlowerCity Blog') }}</li>
+			</ul>
+            <!-- right-area -->
+			<div class="right-area">
+				<div class="src-area">
+					<form action="post">
+						<input class="src-input" type="text" placeholder="{{ _('Search') }}">
+						<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+					</form>
+				</div>
+                <!-- src-area -->
+				<ul class="social-icons">
+					<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="middle-menu center-text"><a href="{{ url_for('main.home') }}" class="logo"><img src="../../static/images/logo/logo.png" alt="Logo Image"></a></div>
+
+        <!-- conatiner -->
+		<div class="bottom-area">
+			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+            <!-- main-menu -->
+			<ul class="main-menu visible-on-click" id="main-menu">
+                <li><a href="{{ url_for('main.blog') }}">{{ _('Main') }}</a></li>
+				<li><a href="{{ url_for('main.blog_aboutme') }}">{{ _('My Blog') }}</a></li>
+                <li><a href="{{ url_for('main.blog_interest') }}">{{ _('My Interest') }}</a></li>
+                <li><a href="#">{{ _('Popular Blog') }}</a></li>
+                <li><a href="{{ url_for('main.home') }}">{{ _('Back To Shop') }}</a></li>
+			</ul>
+		</div>
+	</header>

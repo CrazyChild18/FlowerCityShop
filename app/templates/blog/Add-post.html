@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>{{ _('Write My Blog') }}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link href="../../static/blog/common-css/bootstrap.css" rel="stylesheet">
+	<link href="../../static/blog/common-css/ionicons.css" rel="stylesheet">
+	<link href="../../static/blog/02-Single-post/css/styles.css" rel="stylesheet">
+	<link href="../../static/blog/02-Single-post/css/responsive.css" rel="stylesheet">
+
+</head>
+<body>
+
+    {% include 'blog/blog_head.html' %}
+
+	<section class="blog-area">
+		<div class="container">
+			<div class="row">
+
+                <!-- 主页面 -->
+				<div class="col-lg-8 col-md-12">
+					<div class="blog-posts">
+                        <!-- 文字输入区 -->
+						<div class="leave-comment-area">
+							<h4 class="title"><b class="light-color">{{ _('Write Down Your Blog Here') }}</b></h4>
+							<div class="leave-comment" >
+								<form method="post" enctype="multipart/form-data" novalidate action="">
+                                    <input class="name-input" type="text" id="type" name="type" style="display: none">
+									<div class="row">
+										<div class="col-sm-12">
+											<input class="name-input" type="text" placeholder="Title" name="title", id="title">
+										</div>
+										<div class="col-sm-6">
+											<input class="email-input" type="file" placeholder="Picture" name="filesToUpload" id="filesToUpload" multiple="multiple">
+										    <output id="filesInfo" style="display: inline-block"></output>
+                                        </div>
+										<div class="col-sm-12">
+											<textarea class="message-input" rows="6" placeholder="Describe" name="describe", id="describe"></textarea>
+										</div>
+{#										<div class="col-sm-12" style="margin-top: 10px; margin-bottom: 20px">#}
+{#                                            <div class="page-wrapper">#}
+{#                                                <section class="page-body">#}
+{#                                                    <div class="row widget">#}
+{#                                                        <section class="col-md-12">#}
+{#                                                            <div class="box editor">#}
+{#                                                                <div class="box-header" >#}
+{#                                                                    <h3 class="box-title">Content</h3>#}
+{#                                                                </div>#}
+{#                                                                <div class="box-body">#}
+{#                                                                    <script id="ueditor" name="content" type="text/plain"></script>#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </section>#}
+{#                                                    </div>#}
+{#                                                </section>#}
+{#                                            </div>#}
+{#										</div>#}
+										<div class="col-sm-12">
+                                            <button class="btn btn-2" type="submit" id="publish"><b>{{ _('PUBLISH') }}</b></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                <!-- 侧边栏分类选择 -->
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+						<div class="sidebar-section tags-area">
+							<h4 class="title"><b class="light-color">{{ _('Choose Your Article Category') }}</b></h4>
+							<ul class="category" style="overflow: hidden; display: block; list-style-type: disc;">
+								<li class="item" style="list-style: none; display: inline-block; margin: 5px; width: 100%"><a class="style_choose" href="#" style="font-size: .9em; padding: 10px 30px;border-radius: 1px;letter-spacing: 2px;border: 1px solid #FFAD4D;background: #FFAD4D;color: #ffffff;font-weight: normal;line-height: 1.25;text-align: center;white-space: nowrap;vertical-align: middle;width: 100%">{{ _('Flower Art Appreciation')}}</a></li>
+								<li class="item" style="list-style: none; display: inline-block; margin: 5px; width: 100%"><a class="style_choose" href="#" style="font-size: .9em; padding: 10px 30px;border-radius: 1px;letter-spacing: 2px;border: 1px solid #FFAD4D;background: #FFAD4D;color: #fff;font-weight: normal;line-height: 1.25;text-align: center;white-space: nowrap;vertical-align: middle;width: 100%">{{ _('Breeding Techniques')}}</a></li>
+								<li class="item" style="list-style: none; display: inline-block; margin: 5px; width: 100%"><a class="style_choose" href="#" style="font-size: .9em; padding: 10px 30px;border-radius: 1px;letter-spacing: 2px;border: 1px solid #FFAD4D;background: #FFAD4D;color: #fff;font-weight: normal;line-height: 1.25;text-align: center;white-space: nowrap;vertical-align: middle;width: 100%">{{ _('Question And Answer')}}</a></li>
+								<li class="item" style="list-style: none; display: inline-block; margin: 5px; width: 100%"><a class="style_choose" href="#" style="font-size: .9em; padding: 10px 30px;border-radius: 1px;letter-spacing: 2px;border: 1px solid #FFAD4D;background: #FFAD4D;color: #fff;font-weight: normal;line-height: 1.25;text-align: center;white-space: nowrap;vertical-align: middle;width: 100%">{{ _('Sharing Flowers')}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+	<script src="../../static/blog/common-js/jquery-3.1.1.min.js"></script>
+	<script src="../../static/blog/common-js/tether.min.js"></script>
+	<script src="../../static/blog/common-js/bootstrap.js"></script>
+	<script src="../../static/blog/common-js/scripts.js"></script>
+    <script>
+        function fileSelect(evt) {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                var files = evt.target.files;
+                var result = '';
+                var file;
+                for (var i = 0; file = files[i]; i++) {
+                    // if the file is not an image, continue
+                    if (!file.type.match('image.*')) {
+                        continue;
+                    }
+                    result += '<name>' + file.name;
+                    reader = new FileReader();
+                    reader.onload = (function (tFile) {
+                        return function (evt) {
+                            var div = document.createElement('span');
+                            div.innerHTML = '<img style="width: 230px; display: inline;" src="' + evt.target.result + '" />';
+                            div.style.display = "inline";
+                            document.getElementById('filesInfo').appendChild(div);
+                        };
+                    }(file));
+                    reader.readAsDataURL(file);
+                }
+                {#alert(result)#}
+            } else {
+                alert('The File APIs are not fully supported in this browser.');
+            }
+            }
+
+            document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
+    </script>
+
+    <script type="text/javascript">
+    	$(function(){
+    		/**
+             * [TinyMCE富文本编辑器]
+             * @type {String}
+             */
+            var ue = UE.getEditor('ueditor');
+    	})
+
+        $('.item').on('click', function (){
+            for(var i=0; i<$(this).parent().length; i++){
+                var text = $(this).parent().find('li').eq(i).text()
+                if(text = $('#type').val()){
+                    $(this).parent().find('li').find('a').css('background', 'orange')
+                    break;
+                }
+            }
+            $(this).find('a').css('background', 'red')
+            $('#type').val($(this).text())
+        })
+    </script>
+
+    <script type="text/javascript" src="../../static/admin/assets/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/assets/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../../static/admin/assets/libs/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/assets/libs/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="../../static/admin/assets/libs/ueditor/ueditor.all.min.js"></script>
+
+</body>
+</html>

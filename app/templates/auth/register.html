@@ -1,0 +1,148 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Register') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+
+        <!--Top Notification-->
+        {% with message = get_flashed_messages() %}
+            {% if message %}
+                <div class="top-notification-bar text-center" style="position:fixed; top: 20%; width: 100%">
+                    <div class="container">
+                        <div class="notification-entry">
+                            <p style="color: red">{{ message }}</p>
+                        </div>
+                    </div>
+                    <div class="notification-close">
+                        <button class="notification-close-btn"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner-->
+        <div class="page-banner" style="background-image: url(../../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Register') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('Register') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--Register-->
+        <div class="register-page section-padding-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="login-register-content">
+                            <h4 class="title">{{ _('Creat New Account') }}</h4>
+
+                            <div class="login-register-form">
+                                <form action="" method="post" novalidate>
+                                    <div class="single-form">
+                                        <label>{{ _('Username:') }}</label>
+                                        <input type="text" placeholder="{{ _('Your username') }}" name="username">
+                                    </div>
+                                    <div class="single-form">
+                                        <label>{{ _('Email address:') }}</label>
+                                        <input type="email" placeholder="{{ _('Your email address') }}" name="email">
+                                    </div>
+                                    <div class="single-form">
+                                        <label>{{ _('Password:') }}</label>
+                                        <input type="password" placeholder="{{ _('Please enter password') }}" name="pwd">
+                                    </div>
+                                    <div class="single-form">
+                                        <label>{{ _('Password Confirm:') }}</label>
+                                        <input type="password" placeholder="{{ _('Please confirm password') }}" name="pwdc">
+                                    </div>
+                                    <div class="single-form">
+                                        <button class="btn btn-primary btn-block" type="submit">{{ _('Register') }}</button>
+                                    </div>
+                                    <div class="single-form">
+                                        <div class="cus-checkbox">
+                                            <input type="checkbox" id="remember">
+                                            <label for="remember"><span></span> {{ _('Receive Offers From Our Partners') }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="single-form">
+                                        <label>{{ _('Already have an account?') }}</label>
+                                        <a href="{{ url_for('auth.login') }}" class="btn btn-dark btn-block">{{ _('Log in instead!')}}</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'public_foot.html' %}
+
+        <!--Back To-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../../static/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="../../static/js/vendor/popper.min.js"></script>
+    <script src="../../static/js/vendor/bootstrap.min.js"></script> -->
+
+    <!-- Plugins JS -->
+    <!-- <script src="../../static/js/plugins/swiper-bundle.min.js"></script>
+    <script src="../../static/js/plugins/jquery.countdown.min.js"></script>
+    <script src="../../static/js/plugins/jquery.elevateZoom.min.js"></script>
+    <script src="../../static/js/plugins/select2.min.js"></script>
+    <script src="../../static/js/plugins/ajax-contact.js"></script> -->
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../static/js/main.js"></script>
+
+
+    <!-- Google Map js -->
+    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>
+    <script src="../../static/js/map-script.js"></script>
+
+</body>
+
+</html>

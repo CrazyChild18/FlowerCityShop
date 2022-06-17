@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/admin_new/assets/images/favicon.png">
+    <title>{{ _('Order Control') }}</title>
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/vendor/plazaicon.css">
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/admin_new/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/admin_new/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/admin_new/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+
+</head>
+
+<body>
+<div class="fix-header card-no-border fix-sidebar">
+
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">{{ _('FlowerCity Staff Side') }}</p>
+        </div>
+    </div>
+
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+
+        {% include 'admin_new/admin_head_bar.html' %}
+
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" style="margin-top: 30px">
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">{{ _('Order List') }}</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url_for('admin.admin_main_new') }}">{{ _('Home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ _('Order List') }}</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-7 align-self-center">
+                        <div class="header-search">
+                            <form action="#">
+                                <input type="text" class="search_input" placeholder="{{ _('Search') }}">
+                                <button type="button" class="search_button"><i class="icon-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start Page Content -->
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table", id="table">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="page", style="margin-right: auto; margin-left: auto">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- footer -->
+            <footer class="footer">Copyright &copy; 2021 Newbility All rights reserved.</footer>
+
+        </div>
+    </div>
+</div>
+
+    <!-- All Jquery -->
+    <script src="../../static/admin_new/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/popper.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../static/admin_new/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="../../static/admin_new/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../static/admin_new/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../static/admin_new/js/custom.min.js"></script>
+    <!-- jQuery peity -->
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="../../static/admin_new/assets/node_modules/peity/jquery.peity.init.js"></script>
+
+    <script>
+        var item_list
+        var item_number = 10
+        var pre_page = 1
+        var next_page
+        var cur_page = 1
+        $.ajax({
+            type: 'post',
+            url: '/admin/search_order',
+            data: {'data': '{{ items }}' },
+            success: function (data) {
+                item_list = data
+                next_page = Math.ceil(data.length / item_number)
+                load_page()
+                load_flower(item_list)
+            },
+            error: function () {
+                alert('123')
+            }
+        });
+        function load_flower(data){
+            var str = ''
+            var up
+            if(cur_page==next_page){
+                 up = item_list.length
+            }else{
+                 up = cur_page * item_number
+            }
+            if(next_page==0){
+                up = 0
+            }
+            str += `
+                    <thead>
+                        <tr>
+                            <th><b>ID</b></th>
+                            <th><b>Product Name</b></th>
+                            <th><b>Create Time</b></th>
+                            <th><b>Total Price</b></th>
+                            <th><b>State</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    `
+            for (var i = (cur_page-1) * item_number; i < up; i++) {
+                if (data[i].finish == 0){
+                    str += `
+                            <tr style="border: red dot-dot-dash 2px">
+                                <td><b>${data[i].id}</b></td>
+                                <td><a href="#" style="color: black"><b>${data[i].name}</b></a></td>
+                                <td><b>${data[i].time}</b></td>
+                                <td><b>${data[i].total}</b></td>
+                                <td><button type="button" class="send" style="border: lightskyblue 2px double; background: lightskyblue; color: white; border-radius: 13px"><b>Send</b></button></td>
+                            </tr>
+                            `
+                }else if(data[i].finish == 1){
+                    str += `
+                            <tr style="border: red dot-dot-dash 2px">
+                                <td><b>${data[i].id}</b></td>
+                                <td><a href="#" style="color: black"><b>${data[i].name}</b></a></td>
+                                <td><b>${data[i].time}</b></td>
+                                <td><b>${data[i].total}</b></td>
+                                <td><span><b>Delivering</b></span></td>
+                            </tr>
+                            `
+                }else if(data[i].finish == 2){
+                    str += `
+                            <tr style="border: red dot-dot-dash 2px">
+                                <td><b>${data[i].id}</b></td>
+                                <td><a href="#" style="color: black"><b>${data[i].name}</b></a></td>
+                                <td><b>${data[i].time}</b></td>
+                                <td><b>${data[i].total}</b></td>
+                                <td><span><b>Order Finished</b></span></td>
+                            </tr>
+                            `
+                }else if(data[i].finish == 3){
+                    str += `
+                            <tr style="border: red dot-dot-dash 2px">
+                                <td><b>${data[i].id}</b></td>
+                                <td><a href="#" style="color: black"><b>${data[i].name}</b></a></td>
+                                <td><b>${data[i].time}</b></td>
+                                <td><b>${data[i].total}</b></td>
+                                <td><button type="button" class="refund" style="border: lightskyblue 2px double; background: lightskyblue; color: white; border-radius: 13px"><b>Refund</b></button></td>
+                            </tr>
+                            `
+                }else if(data[i].finish == 4){
+                    str += `
+                            <tr style="border: red dot-dot-dash 2px">
+                                <td><b>${data[i].id}</b></td>
+                                <td><a href="#" style="color: black"><b>${data[i].name}</b></a></td>
+                                <td><b>${data[i].time}</b></td>
+                                <td><b>${data[i].total}</b></td>
+                                <td><span><b>Refund Finished</b></span></td>
+                            </tr>
+                            `
+                }
+            }
+            str += `
+                    </tbody>
+                    `
+            document.getElementById('table').innerHTML = str;
+
+            $('.send').on('click', function (){
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/send',
+                    data: {'id': $(this).closest('tr').find('td').eq(0).text()},
+                    success: function (data) {
+                        if (data == 'success'){
+                            window.location.href = '/admin/admin_order_new/{{ items }}'
+                        }
+                    },
+                    error: function (){
+                        alert('fail')
+                    }
+                 })
+            })
+
+            $('.refund').on('click', function (){
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/refund',
+                    data: {'id': $(this).closest('tr').find('td').eq(0).text()},
+                    success: function (data) {
+                        if (data == 'success'){
+                            window.location.href = '/admin/admin_order_new/{{ items }}'
+                        }
+                    },
+                    error: function (){
+                        alert('fail')
+                    }
+                 })
+            })
+
+        }
+        function load_page(){
+                    var page = ''
+                    page +=
+                        `
+                        <ul class="pagination" style="margin-left: auto; margin-right: auto; text-align: center">
+                        `
+                    if(pre_page == cur_page){
+                        page +=`<li class="disabled"><a>&laquo;</a></li>`;
+                    }else{
+                        page +=`
+                                <li><a id = 'pre'>&laquo;</a></li>`;
+                    }
+                    for(var i=1; i<=next_page; i++){
+                        if(i<= cur_page + 3){
+                            if(i == cur_page){
+                                page += `<li class="active"><a class='page_number'>${i}</a></li>`
+                            }else{
+                                page += `<li><a class='page_number'>${i}</a></li>`
+                            }
+                        }else{
+                            page += `<li class="disabled"><a href="#">&hellip;</a></li>`
+                        }
+                    }
+                    if(next_page == cur_page){
+                        page +=`<li class="disabled"><a>&raquo;</a></li>`;
+                    }else{
+                        page +=`<li><a id = 'next'>&raquo;</a></li>`;
+                    }
+                    page +=`<div style="clear: both"></div></ul>`;
+                    document.getElementById('page').innerHTML = page
+                    $('#pre').on('click', function (){
+                        cur_page -= 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('#next').on('click', function (){
+                        cur_page += 1;
+                        load_page();
+                        load_flower(item_list);
+                    })
+                    $('.page_number').on('click', function (){
+                        cur_page = $(this).text()
+                        load_page();
+                        load_flower(item_list);
+                    })
+
+        }
+
+        $('.search_button').on('click', function(){
+            var text = $('.search_input').val();
+            window.location.href = '/admin/admin_order_new/'+ text;
+        })
+    </script>
+</body>
+
+</html>

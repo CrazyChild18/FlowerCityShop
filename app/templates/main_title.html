@@ -1,0 +1,239 @@
+<!--Header Section-->
+<div class="header-section d-none d-lg-block">
+    <div class="main-header">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <!--标题栏logo-->
+                <div class="col-lg-2">
+                    <div class="header-logo">
+                        <img src="../static/images/logo/logo.png">
+                    </div>
+                </div>
+                <!--标题栏导航菜单-->
+                <div class="col-lg-7 position-static">
+                    <div class="site-main-nav">
+                        <nav class="site-nav">
+                            <ul>
+                                <li>
+                                    <a href="{{ url_for('main.home') }}">{{ _('Home') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('main.shop_list_new', text='%null%') }}">{{ _('Shop List') }} <span class="new">{{ _('New') }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('main.about') }}">{{ _('About') }}</a>
+                                </li>
+
+                                {% if current_user.is_authenticated %}
+                                    <li>
+                                        <a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">{{ _('My') }}</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{{ url_for('main.cart') }}">{{ _('Shopping cart')}}</a></li>
+                                            <li><a href="{{ url_for('main.wishlist') }}">{{ _('Wishlist') }}</a></li>
+                                            <li><a href="{{ url_for('auth.myaccount') }}">{{ _('My Account')}}</a></li>
+                                            <li><a href="{{ url_for('main.collection_card') }}">{{ _('Collection') }}</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!--标题栏右菜单-->
+                <div class="col-lg-3">
+                    <div class="header-meta-info">
+                        <!--搜索-->
+                        <div class="header-search">
+                            <form action="#">
+                                <input type="text" class="search_input" placeholder="{{ _('Search') }}">
+                                <button type="button" class="search_button"><i class="icon-search"></i></button>
+                            </form>
+                        </div>
+                        <!--用户-->
+                        <div class="header-account">
+                            <!--小人图标-->
+                            <div class="header-account-list dropdown top-link">
+                                <a href="#" role="button" data-toggle="dropdown"><i class="icon-users"></i></a>
+                                <ul class="dropdown-menu ">
+                                    {% if current_user.is_authenticated %}
+                                        {% if isAdmin %}
+                                            <li><a href="{{ url_for('admin.admin_main_new') }}">{{ _('My shop')}}</a></li>
+                                            <li><a href="{{ url_for('auth.logout') }}">{{ _('Log out')}}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ url_for('auth.myaccount') }}">{{ _('My account')}}</a></li>
+                                            <li><a href="{{ url_for('auth.logout') }}">{{ _('Log out') }}</a></li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
+                                        <li><a href="{{ url_for('auth.register') }}">{{ _('Register') }}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <!--购物车图标-->
+                            {% if current_user.isAdmin == False %}
+                                {% include 'shopping_cart.html' %}
+                            {% endif %}
+                        
+                            <div class="header-account-list dropdown top-link" style="margin-left: 27px">
+                                <a href="#" role="button" data-toggle="dropdown" style="width: 25px"><img src="../static/images/switch.png"></a>
+                                <ul class="dropdown-menu ">
+                                    <li><a href="#" onclick="set_language('en')">英语（EN）</a></li>
+                                    <li><a href="#" onclick="set_language('zh')">Chinese（中文）</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Header Mobile-->
+<div class="header-mobile d-lg-none">
+    <div class="container">
+        <div class="row align-items-center">
+            <!--导航栏logo-->
+            <div class="col-6">
+                <div class="header-logo">
+                    <img src="../static/images/logo/logo.png" alt="">
+                </div>
+            </div>
+            <!--导航栏内容-->
+            <div class="col-6">
+                <div class="header-meta-info">
+                    <div class="header-account">
+                        <!--用户图标-->
+                        <div class="header-account-list dropdown top-link">
+                            <a href="#" role="button" data-toggle="dropdown"><i class="icon-users"></i></a>
+                            <ul class="dropdown-menu ">
+                                {% if current_user.is_authenticated %}
+                                    {% if isAdmin %}
+                                        <li><a href="{{ url_for('admin.shop') }}">{{ _('My shop') }}</a></li>
+                                        <li><a href="{{ url_for('auth.logout') }}">{{ _('Log out') }}</a></li>
+                                    {% else %}
+                                        <li><a href="{{ url_for('auth.myaccount') }}">{{ _('My account') }}</a></li>
+                                        <li><a href="{{ url_for('auth.logout') }}">{{ _('Log out') }}</a></li>
+                                    {% endif %}
+                                {% else %}
+                                    <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
+                                    <li><a href="{{ url_for('auth.register') }}">{{ _('Register') }}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <!--购物车图标-->
+                        <div class="header-account-list mini-cart">
+                            <a href="{{ url_for('main.cart') }}">
+                                <i class="icon-shopping-bag"></i>
+                                <span class="item-count ">0</span>
+                            </a>
+                        </div>
+                        <div class="header-account-list dropdown mini-cart" style="margin-left: 27px">
+                                <a href="#" role="button" data-toggle="dropdown" style="width: 25px"><img src="../static/images/switch.png"></a>
+                                <ul class="dropdown-menu ">
+                                    <li><a href="#" onclick="set_language('en')">英语（EN）</a></li>
+                                    <li><a href="#" onclick="set_language('zh')">Chinese（中文）</a></li>
+                                </ul>
+                            </div>
+
+                        <!--菜单展开图标-->
+                        <div class="header-account-list mobile-menu-trigger">
+                            <button id="menu-trigger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Header Mobile Menu-->
+<div class="header-mobile-menu d-lg-none">
+
+    <!--侧边栏关闭图标-->
+    <a href="javascript:void(0)" class="mobile-menu-close">
+        <span></span>
+        <span></span>
+    </a>
+
+    <!--侧边栏搜索部分-->
+    <div class="header-meta-info">
+        <!--搜索-->
+        <div class="header-search">
+            <form action="#">
+                <input type="text" placeholder="{{ _('Search') }}">
+                <button><i class="icon-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!--侧边栏内容部分-->
+    <div class="site-main-nav">
+        <nav class="site-nav">
+            <ul class="navbar-mobile-wrapper">
+                <li>
+                    <a href="{{ url_for('main.home') }}">{{ _('Home') }}</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.shop_list_new', text='%null%') }}">{{ _('Shop List') }} <span class="new">{{ _('New') }}</span></a>
+{#                    <ul class="mega-sub-menu">#}
+{#                        <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}">Flower Zone</a></li>#}
+{#                        <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}">Dried Flowers Zone</a></li>#}
+{#                        <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}">Potted Zone</a></li>#}
+{#                        <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}">Tools Zone</a></li>#}
+{#                        <li><a href="{{ url_for('main.shop_list_new', text='%null%') }}">Flower Suit Zone</a></li>#}
+{#                    </ul>#}
+                </li>
+                <li>
+                    <a href="#">{{ _('My') }}</a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ url_for('main.cart') }}">{{ _('Shopping cart') }}</a></li>
+                        <li><a href="{{ url_for('main.wishlist') }}">{{ _('Wishlist') }}</a></li>
+                        <li><a href="{{ url_for('auth.myaccount') }}">{{ _('My Account')}}</a></li>
+                        <li><a href="{{ url_for('auth.myaccount') }}">{{ _('Delivery') }}</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.about') }}">{{ _('About') }}</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!--侧边栏第三方连接部分-->
+{#    <div class="header-social">#}
+{#        <ul class="social">#}
+{#            <li><a href="#"><i class="fa fa-facebook"></i></a></li>#}
+{#            <li><a href="#"><i class="fa fa-twitter"></i></a></li>#}
+{#            <li><a href="#"><i class="fa fa-instagram"></i></a></li>#}
+{#            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>#}
+{#            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>#}
+{#        </ul>#}
+{#    </div>#}
+
+</div>
+
+<!--Overlay-->
+<div class="overlay"></div>
+
+<script>
+    function set_language(l){
+        $.ajax({
+            type: 'POST',
+            url: '/translate',
+            data: {'language': l},
+            success: function (data){
+                if (data == 'success'){
+                   location.reload([true])
+                }
+            }
+        })
+    }
+</script>

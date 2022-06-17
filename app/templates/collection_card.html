@@ -1,0 +1,398 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('Collection Card')}}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+</head>
+
+<body>
+{% import "_macros.html" as macros %}
+    <div class="main-wrapper">
+
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner Start-->
+        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('Collection Card') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('Collection Card')}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--Shop Start-->
+        <div class="shop-page section-padding-6">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-12">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="grid" role="tabpanel">
+                                <div class="row">
+                                    {% for flower in flowers %}
+                                        {% if flower in flowers_buy %}
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <a href="{{ url_for('main.product_detail', id=flower.id) }}">
+                                                            <img src="../static/images/get.png" style="position: absolute">
+                                                            <img class="image_hit" title="{{ flower.id }}" src="../static/uploaded_AVATAR/{{ flower.pic }}" alt="">
+                                                        </a>
+                                                        <div class="action-links">
+                                                            <ul>
+                                                                <li style="display: none">{{ flower.id }}</li>
+                                                                <li style="display: none">{{ flower.pic }}</li>
+                                                                <li style="display: none">{{ flower.name }}</li>
+                                                                <li style="display: none">{{ flower.price }}</li>
+                                                                <li style="display: none">{{ flower.grade }}</li>
+                                                                <li style="display: none">{{ flower.intro }}</li>
+                                                                <li><a href="{{ url_for('main.list_add_cart', id=flower.id) }}" data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                                                <li><a href="{{ url_for('main.list_add_wishlist', id=flower.id) }}" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                                                <li><a href="" class="quick_view" data-tooltip="tooltip" data-placement="left" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content text-center">
+                                                        <ul class="rating" style="display: none">
+                                                            {% if flower.grade >= 2 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 4 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 6 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 8 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade == 10 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        <h4 class="product-name"><a class="product_detail" title="{{ flower.id }}" href="{{ url_for('main.product_detail', id=flower.id) }}">{{ flower.name }}</a></h4>
+                                                        <div class="price-box" style="display: none">
+                                                            <span class="current-price">${{ flower.price }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div class="single-product">
+                                                    <div class="product-image">
+                                                        <a href="{{ url_for('main.product_detail', id=flower.id) }}">
+                                                            <img class="image_hit" title="{{ flower.id }}" src="../static/uploaded_AVATAR/{{ flower.pic }}" alt="">
+                                                        </a>
+                                                        <div class="action-links">
+                                                            <ul>
+                                                                <li style="display: none">{{ flower.id }}</li>
+                                                                <li style="display: none">{{ flower.pic }}</li>
+                                                                <li style="display: none">{{ flower.name }}</li>
+                                                                <li style="display: none">{{ flower.price }}</li>
+                                                                <li style="display: none">{{ flower.grade }}</li>
+                                                                <li style="display: none">{{ flower.intro }}</li>
+                                                                <li><a href="{{ url_for('main.list_add_cart', id=flower.id) }}" data-tooltip="tooltip" data-placement="left" title="Add to cart"><i class="icon-shopping-bag"></i></a></li>
+                                                                <li><a href="{{ url_for('main.list_add_wishlist', id=flower.id) }}" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                                                <li><a href="" class="quick_view" data-tooltip="tooltip" data-placement="left" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="icon-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content text-center">
+                                                        <ul class="rating" style="display: none">
+                                                            {% if flower.grade >= 2 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 4 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 6 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade >= 8 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                            {% if flower.grade == 10 %}
+                                                                <li class="rating-on"><i class="fa fa-star"></i></li>
+                                                            {% else %}
+                                                                <li class="rating-on"><i class="fa fa-star-o"></i></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        <h4 class="product-name"><a class="product_detail" title="{{ flower.id }}" href="{{ url_for('main.product_detail', id=flower.id) }}">{{ flower.name }}</a></h4>
+                                                        <div class="price-box" style="display: none">
+                                                            <span class="current-price">${{ flower.price }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Pagination Start-->
+                        <div class="page-pagination" style="text-align: center;">
+                            {% if items %}
+                                <div class="pagination" style="text-align: center; display: inline-block; margin-top: -30px">
+
+                                    {{ macros.pagination_widget(items, '.collection_card') }}
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div style="clear: both"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Shop End-->
+
+
+        {% include 'public_foot.html' %}
+
+
+        <!--Back To Start-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+
+        <!-- Quick View-->
+        <div class="modal fade" id="exampleModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
+                    <span id="value" style="display: none"></span>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="quick-view-image">
+                                    <img id="image" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="quick-view-content">
+                                    <h4 class="product-title"></h4>
+                                    <div class="thumb-price">
+                                        <span class="current-price"></span>
+{#                                        <span class="old-price">$29.00</span>#}
+                                        <span class="discount">VIP -10%</span>
+                                    </div>
+                                    <div class="product-rating">
+                                        <ul class="rating-star">
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                    </div>
+                                    <p id="introduction"></p>
+
+                                    <div class="quick-view-quantity-addcart d-flex flex-wrap">
+                                        <form action="#">
+                                            <div class="quantity d-inline-flex">
+                                                <button type="button" class="sub"><i class="ti-minus"></i></button>
+                                                <input id="number" type="text" value="1" />
+                                                <button type="button" class="add"><i class="ti-plus"></i></button>
+                                            </div>
+                                        </form>
+                                        <div class="addcart-btn">
+                                            <button type="button" id="submit" class="btn btn-primary">{{ _('Add to cart') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="../static/js/vendor/popper.min.js"></script>
+    <script src="../static/js/vendor/bootstrap.min.js"></script> -->
+
+    <!-- Plugins JS -->
+    <!-- <script src="../static/js/plugins/swiper-bundle.min.js"></script>
+    <script src="../static/js/plugins/jquery.countdown.min.js"></script>
+    <script src="../static/js/plugins/jquery.elevateZoom.min.js"></script>
+    <script src="../static/js/plugins/select2.min.js"></script>
+    <script src="../static/js/plugins/ajax-contact.js"></script> -->
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+
+    <!-- Google Map js -->
+{#    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#    <script src="../static/js/map-script.js"></script>#}
+    <script src="../static/assets/js/jquery-1.12.4.min.js"></script>
+    <script src="../static/assets/js/jquery.plugin-countdown.min.js"></script>
+    <script src="../static/assets/js/jquery-countdown.min.js"></script>
+    <script src="../static/assets/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/owl.carousel.min.js"></script>
+    <script src="../static/assets/js/magnific-popup.min.js"></script>
+    <script src="../static/assets/js/isotope.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollbar.min.js"></script>
+    <script src="../static/assets/js/jquery-ui.min.js"></script>
+    <script src="../static/assets/js/mobile-menu.js"></script>
+    <script src="../static/assets/js/chosen.min.js"></script>
+    <script src="../static/assets/js/slick.js"></script>
+    <script src="../static/assets/js/jquery.elevateZoom.min.js"></script>
+    <script src="../static/assets/js/jquery.actual.min.js"></script>
+    <script src="../static/assets/js/fancybox/source/jquery.fancybox.js"></script>
+    <script src="../static/assets/js/lightbox.min.js"></script>
+    <script src="../static/assets/js/owl.thumbs.min.js"></script>
+    <script src="../static/assets/js/jquery.scrollbar.min.js"></script>
+{#    <script src='https://ditu.google.cn/maps/api/js?key=AIzaSyC3nDHy1dARR-Pa_2jjPCjvsOR4bcILYsM'></script>#}
+    <script src="../static/assets/js/frontend-plugin.js"></script>
+
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+    <script>
+        $('.product_detail').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/hit',
+                data: {
+                    'id': this.title,
+                },
+                success: function (data) {
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+
+        $('.image_hit').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/hit',
+                data: {
+                    'id': this.title,
+                },
+                success: function (data) {
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+
+        $('.quick_view').on('click', function (){
+            $('#number').val(1)
+            $('#value').html($(this).closest('ul').find('li').eq(0).text())
+            $('.product-title').text($(this).closest('ul').find('li').eq(2).text())
+            var path = '../static/uploaded_AVATAR/' + $(this).closest('ul').find('li').eq(1).text()
+            $('#image').attr('src', path)
+            $('.current-price').html($(this).closest('ul').find('li').eq(3).text())
+
+            var grade = $(this).closest('ul').find('li').eq(4).text()
+            if(grade >= 2){
+                $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(0).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 4){
+                $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(1).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 6){
+                $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(2).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 8){
+                $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(3).find('i').attr('class', 'fa fa-star-o')
+            }
+            if(grade >= 10){
+                $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star')
+            }else{
+                $('.rating-star').find('li').eq(4).find('i').attr('class', 'fa fa-star-o')
+            }
+
+            $('#introduction').html($(this).closest('ul').find('li').eq(5).text())
+        })
+
+        $('#submit').on('click', function (){
+            $.ajax({
+                type: 'post',
+                url: '/quick_view_add_cart',
+                data: {
+                    'id': $('#value').text(),
+                    'number': $('#number').val()
+                },
+                success: function (data) {
+                    if (data == 'success'){
+                        window.location.href = '/cart'
+                    }
+                },
+                error: function () {
+                    alert('wrong')
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

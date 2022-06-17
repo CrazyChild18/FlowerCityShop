@@ -1,0 +1,158 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ _('About') }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.png">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="../static/css/helper.css">
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <link rel="stylesheet" href="../static/css/plugins-min/plugins.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        {% include 'main_title.html' %}
+
+        <!--Page Banner-->
+        <div class="page-banner" style="background-image: url(../static/images/testimonial-bg.jpg);">
+            <div class="container">
+                <div class="page-banner-content text-center">
+                    <h2 class="title">{{ _('About') }}</h2>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ _('About') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!--About-->
+        <div class="about-page-area section-padding">
+            <div class="container">
+                <figure>
+                    <figcaption class="about-page-content text-center">
+                        <h2 class="title">{{ _('an independent, temperature, attitude flower shop')}}</h2>
+                        <p>{{ _('As a niche brand flower shop, we are committed to creating our own unique product concept
+                                and value. We want to share the beauty and warmth of the flowers we find with our customers
+                                and let them feel the small happiness in life. I also hope you can find your own comfort
+                                zone here.') }}</p>
+                    </figcaption>
+                    <figcaption class="about-page-content text-center">
+                        <h2 class="title">&nbsp;</h2>
+                    </figcaption>
+                    <div class="about-thumb">
+                        <img src="../static/images/about/shop_pic.jpg" alt="">
+                    </div>
+                    <figcaption class="about-page-content text-center">
+                        <h2 class="title">&nbsp;</h2>
+                    </figcaption>
+                    <figcaption class="about-page-content text-center">
+                        <h2 class="title">{{ _('Core Strengths')}}</h2>
+                        <p style="font-size: larger"><b>12道品控标准+送前实拍</b></p>
+                        <p>行业内率先研发并实施12道严苛品控标准：从花材采购、制作、成品、配送，到售后全程严格进行品控管理，将产品及服务标准化。配送前实拍，由专人审核，确保花束品质一贯保持高标准。</p>
+                        <p>&nbsp;</p>
+                        <img src="../static/images/about/countity.png">
+                    </figcaption>
+                    &nbsp;
+                    <figcaption class="about-page-content text-center">
+                        <p style="font-size: larger"><b>金牌花艺师团队</b></p>
+                        <p>国内领先的原创花艺：中国花艺博览会赛事冠军花艺师团队打造，坚持原创设计，创作花款迄今已畅销千万束。</p>
+                        <p>&nbsp;</p>
+                        <img src="../static/images/about/team.png">
+                    </figcaption>
+                    &nbsp;
+                    <figcaption class="about-page-content text-center">
+                        <p style="font-size: larger"><b>1-3小时极速送花</b></p>
+                        <p>门店覆盖全国2000+城市，由当地门店新鲜制作，专人专车送货上门，1-3小时送达，可选择指定日期，指定时段送达。</p>
+                        <p>&nbsp;</p>
+                        <img src="../static/images/about/deliver.png">
+                    </figcaption>
+                    &nbsp;
+                    <figcaption class="about-page-content text-center">
+                        <p style="font-size: larger"><b>专业客服团队</b></p>
+                        <p>建设一支专业贴心的客服团队，将常规客服升级为售前订花顾问、售中专人跟单、售后快速响应的一站式管家客服模式。</p>
+                        <p>&nbsp;</p>
+                        <img src="../static/images/about/service.png">
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <!--Brand-->
+        <div class="brand-area">
+            <div class="container">
+                <div class="brand-active swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="single-brand swiper-slide">
+                            <img src="../static/images/brand/brand-1.jpg" alt="">
+                        </div>
+                        <div class="single-brand swiper-slide">
+                            <img src="../static/images/brand/brand-2.jpg" alt="">
+                        </div>
+                        <div class="single-brand swiper-slide">
+                            <img src="../static/images/brand/brand-3.jpg" alt="">
+                        </div>
+                        <div class="single-brand swiper-slide">
+                            <img src="../static/images/brand/brand-4.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Section-->
+        <div class="footer-area">
+            <div class="container">
+                <div class="footer-widget-area section-padding-6">
+                    <div class="footer-widget-text" style="width: 100%">
+                        <p style="color: white; text-align: center">Copyright &copy; 2021.FlowerCity, Beijing, China</p>
+                        <p style="color: white; text-align: center">Powered by Group Newbility &copy;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Back To-->
+        <a href="#" class="back-to-top">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+
+    </div>
+
+
+    <!-- Modernizer JS -->
+    <script src="../static/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="../static/js/vendor/jquery-3.3.1.min.js"></script>
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    <script src="../static/js/plugins.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../static/js/main.js"></script>
+
+    <!-- Search -->
+    <script src="../static/js/search.js"></script>
+
+
+{#    <!-- Google Map js -->#}
+{#    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"></script>#}
+{#    <script src="../static/js/map-script.js"></script>#}
+
+</body>
+
+</html>
